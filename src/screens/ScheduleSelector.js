@@ -2,14 +2,16 @@
 
 import { ThemeProvider } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { View, StyleSheet, Text, RefreshControl, ScrollView } from "react-native";
+// import {  } from "react-native-gesture-handler";
 import { Button, useTheme, Surface } from 'react-native-paper';
 import APIClient from '../utils/APIClient'
 
 const ScheduleSelector = ({ navigation }) => {
   const theme = useTheme();
   const [schedules, setSchedules] = useState([])
+  const [refreshing, setRefreshing] = useState(false)
+
   const retrieveData = async () => {
     try {
       const { data } = await APIClient.get("/schedules/names")
@@ -19,6 +21,8 @@ const ScheduleSelector = ({ navigation }) => {
       console.log({ ...ex });
     }
   }
+
+  const onRefresh = () => { retrieveData(); setRefreshing(false); }
 
   useEffect(() => {
     retrieveData();
@@ -34,11 +38,18 @@ const ScheduleSelector = ({ navigation }) => {
 
 
   return (
-    <Surface >
+    <Surface style={{ flexGrow: 1, flexDirection: 'column' }}>
       {/* <Text>{JSON.stringify(schedules)}</Text> */}
       {/* <Text>This is the selection screen</Text> */}
       {/* {console.log(generateRouteButtons())} */}
-      <ScrollView>
+      <ScrollView
+        refreshControl={<RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+
+        />
+        }
+        contentContainerStyle={{ flex: 1, flexDirection: 'column', padding: 10 }}>
         {
 
           schedules.map((item, index) => {
@@ -53,6 +64,7 @@ const ScheduleSelector = ({ navigation }) => {
                       routeName: item.routeName
                     }
                   )}
+                style={{ margin: 2 }}
 
               >
                 { item.routeName}

@@ -16,6 +16,11 @@ const CombinedDefaultTheme = {
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
+    primary: '#01579b',
+    primaryDark: '#002f6c',
+    primaryLight: '#4f83cc',
+    text: '#ffffff',
+    accent: '#3c67a3'
   },
 };
 const CombinedDarkTheme = {
@@ -39,11 +44,12 @@ import BottomTabNavigator from "./src/navigation/TabNavigator";
 import DrawerNavigator from "./src/navigation/DrawerNavigator";
 import PreferencesContext from './src/preferences/context';
 
-
+import { Text } from 'react-native-paper'
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./src/screens/Home";
 import About from "./src/screens/About";
-
+import SafeAreaView from 'react-native-safe-area-view';
+import { StatusBar } from 'react-native'
 
 
 function App() {
@@ -56,6 +62,10 @@ function App() {
         <NavigationContainer theme={theme}>
           {/* <MainStackNavigator /> */}
           {/* <BottomTabNavigator /> */}
+          <SafeAreaView>
+            {/* <Text>ey</Text> */}
+            <StatusBar barStyle="light-content" backgroundColor={theme?.colors.primaryDark}></StatusBar>
+          </SafeAreaView>
           <DrawerNavigator />
         </NavigationContainer>
       </PaperProvider>

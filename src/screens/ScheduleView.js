@@ -49,10 +49,10 @@ class ScheduleView extends React.Component {
         )
           :
           <Surface style={{ overflow: 'scroll' }}>
-            <Text style={{ textAlign: 'center', fontSize: 20 }}>{scheduleData.routeName}</Text>
+            <Text style={{ textAlign: 'center', fontSize: 20, backgroundColor: theme?.colors.primaryDark }}>{scheduleData.routeName}</Text>
             <ScrollView horizontal style={{ flexWrap: 'wrap' }}>
               <DataTable style={{ width: 1000, flex: 1, flexDirection: 'column', flexWrap: 'wrap' }}>
-                <DataTable.Header>
+                <DataTable.Header style={{ backgroundColor: theme?.colors.primary }}>
                   {/* {
                     scheduleData.stops.map((item, index) => {
                       return <DataTable.Title style={{ ...styles.TableText, flex: 1, flexWrap: 'wrap', margin: 5 }} key={index}>{item.name}</DataTable.Title>
@@ -81,7 +81,7 @@ class ScheduleView extends React.Component {
                   {
                     scheduleData.hours.map((item, index) => {
                       return (
-                        <DataTable.Row key={index} style={(index % 2 == 0) ? {} : { backgroundColor: theme?.colors.primary }}>
+                        <DataTable.Row key={index} style={(index % 2 == 0) ? { backgroundColor: theme?.colors.primaryLight } : { backgroundColor: theme?.colors.accent }}>
                           {
                             item.map((item2, index2) => {
                               return <DataTable.Cell style={{ ...styles.TableText, flex: 1, flexWrap: 'wrap' }} key={index * 100 + index2}>{item2}</DataTable.Cell>
