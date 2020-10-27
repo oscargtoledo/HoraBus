@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useTheme, Appbar, TouchableRipple, Switch } from 'react-native-paper';
+import { View, Button } from 'react-native';
+import { useTheme, Appbar, TouchableRipple, Switch, Text } from 'react-native-paper';
 
 import usePreferences from '../preferences/usePreferences';
 
@@ -16,9 +16,7 @@ function DarkModeSwitch(props) {
         color={'red'}
         value={isThemeDark}
       ></Switch>
-      <Button title="test" onPress={() => { toggleTheme; console.log("e") }}>
 
-      </Button>
       {/* </TouchableRipple> */}
 
 

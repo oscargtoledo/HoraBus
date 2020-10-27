@@ -12,6 +12,7 @@ import {
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
   ...NavigationDefaultTheme,
+  // roundness: 10,
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
@@ -23,8 +24,13 @@ const CombinedDarkTheme = {
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
+    background: '#121212',
+    primary: '#424242',
+
   },
 };
+
+
 
 import React from "react";
 

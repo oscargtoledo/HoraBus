@@ -12,13 +12,14 @@ import { Switch, useTheme, Appbar, TouchableRipple } from 'react-native-paper';
 import { Text, View } from 'react-native';
 // import PreferencesContext from '../PreferencesContext';
 import { DarkModeSwitch as DKSwitch } from '../utils/DarkModeSwitch';
+import GeneralMenu from '../utils/GeneralMenu';
 const Stack = createStackNavigator();
 
 
 
 
 const MainStackNavigator = ({ scene }) => {
-  // const theme = useTheme();
+  const theme = useTheme();
   // const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
   const ScreenOptions = {
@@ -30,13 +31,16 @@ const MainStackNavigator = ({ scene }) => {
   };
 
   return (
-    <Stack.Navigator screenOptions={ScreenOptions}>
-      <Stack.Screen name="Home"
-        component={Home}
-        options={{
-          headerRight: () => (<DKSwitch />)
-        }}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        ...TransitionPresets.SlideFromRightIOS,
+        headerStyle: {
+          backgroundColor: theme?.colors.primary
+        },
+        headerRight: () => (<GeneralMenu />)
+      }}
+    >
+      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
@@ -46,17 +50,41 @@ const ContactStackNavigator = () => {
 
   return (
     // <Stack.Navigator screenOptions={ScreenOptions}>
-    <Stack.Navigator >
+    <Stack.Navigator
+      screenOptions={{
+        ...TransitionPresets.SlideFromRightIOS,
+        headerStyle: {
+          backgroundColor: theme?.colors.primary
+        },
+        headerRight: () => (<DKSwitch />)
+      }}>
       <Stack.Screen name="Contact" component={Contact} />
     </Stack.Navigator>
   );
 };
 
 const ScheduleNavigator = () => {
+  const theme = useTheme();
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Select Schedule" component={ScheduleSelector} />
-      <Stack.Screen name="Schedule Viewer" component={ScheduleView} />
+    <Stack.Navigator
+      screenOptions={{
+        ...TransitionPresets.SlideFromRightIOS,
+        headerStyle: {
+          backgroundColor: theme?.colors.primary
+        },
+        headerRight: () => (<GeneralMenu />)
+      }}
+    >
+      <Stack.Screen
+        name="Select Schedule"
+        component={ScheduleSelector}
+        options={{ headerRight: () => (<DKSwitch />) }}
+      />
+      <Stack.Screen
+        name="Schedule Viewer"
+        component={ScheduleView}
+      // options={({ route }) => ({ title: route.params.routeName })}
+      />
     </Stack.Navigator>
   );
 };

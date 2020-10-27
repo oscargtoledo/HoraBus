@@ -2,15 +2,17 @@
 
 import React from "react";
 import { View, Button, Text, StyleSheet } from "react-native";
+import { Surface } from 'react-native-paper';
 import Header from '../navigation/Header'
+import GeneralMenu from '../utils/GeneralMenu'
 
 const Home = ({ navigation }) => {
   return (
-    <View style={styles.center}>
+    <Surface style={styles.center}>
       <Text>This is the home screen</Text>
       <Button title="Go to About Screen" onPress={() => navigation.navigate("About")} />
       {/* <Header></Header> */}
-    </View>
+    </Surface>
   );
 };
 
