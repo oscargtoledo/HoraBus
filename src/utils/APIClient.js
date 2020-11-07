@@ -13,4 +13,4 @@ export default {
   delete: instance.delete,
   put: instance.put,
   patch: instance.patch,
-}
+};

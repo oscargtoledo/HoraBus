@@ -1,10 +1,15 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useTheme, Menu, Text, ToggleButton } from 'react-native-paper';
-import { DarkModeSwitch } from '../utils/DarkModeSwitch'
+import {
+  useTheme,
+  Menu,
+  Text,
+  ToggleButton,
+  Surface,
+} from 'react-native-paper';
+import { DarkModeSwitch } from '../utils/DarkModeSwitch';
 
 import usePreferences from '../preferences/usePreferences';
-
 
 // const MenuWindow = () => {
 //   return(
@@ -20,22 +25,29 @@ const GeneralMenu = () => {
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
-  const menuButton = <ToggleButton mode="contained" onPress={openMenu} icon="dots-vertical" />
+  const menuButton = (
+    <ToggleButton mode="contained" onPress={openMenu} icon="dots-vertical" />
+  );
   return (
-    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Menu
         visible={visible}
         onDismiss={closeMenu}
         anchor={menuButton}
-        statusBarHeight={60}>
-        {/* <Menu.Item onPress={() => { toggleTheme() }} title="Toggle Dark/Light theme" /> */}
+        statusBarHeight={60}
+      >
         <DarkModeSwitch />
+        {/* <Menu.Item onPress={() => { toggleTheme() }} title="Toggle Dark/Light theme" /> */}
       </Menu>
-
     </View>
-  )
-
-}
+  );
+};
 
 export default GeneralMenu;

@@ -1,6 +1,12 @@
 import React from 'react';
 import { View, Button } from 'react-native';
-import { useTheme, Appbar, TouchableRipple, Switch, Text } from 'react-native-paper';
+import {
+  useTheme,
+  Appbar,
+  TouchableRipple,
+  Switch,
+  Text,
+} from 'react-native-paper';
 
 import usePreferences from '../preferences/usePreferences';
 
@@ -8,8 +14,21 @@ function DarkModeSwitch(props) {
   const theme = useTheme();
   const { isThemeDark, toggleTheme } = usePreferences();
   return (
-    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Dark Mode</Text>
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text
+        style={[
+          isThemeDark ? { color: theme?.colors.text } : { color: 'black' },
+        ]}
+      >
+        Dark Mode
+      </Text>
       {/* <TouchableRipple > */}
       <Switch
         onValueChange={() => toggleTheme()}
@@ -18,11 +37,8 @@ function DarkModeSwitch(props) {
       ></Switch>
 
       {/* </TouchableRipple> */}
-
-
-    </View >
-  )
-
+    </View>
+  );
 }
 
 // <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -30,6 +46,5 @@ function DarkModeSwitch(props) {
 //   <Button title="test" onPress={() => { toggleTheme; console.log("e") }}>
 //   </Button>
 // </View >
-
 
 export { DarkModeSwitch };

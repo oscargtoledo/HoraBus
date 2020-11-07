@@ -20,7 +20,8 @@ const CombinedDefaultTheme = {
     primaryDark: '#002f6c',
     primaryLight: '#4f83cc',
     text: '#ffffff',
-    accent: '#3c67a3'
+    accent: '#3c67a3',
+    columnAccent: '#5390E0',
   },
 };
 const CombinedDarkTheme = {
@@ -30,27 +31,25 @@ const CombinedDarkTheme = {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
     background: '#121212',
-    primary: '#424242',
-
+    accent: '#424242',
+    primary: '#212121',
+    columnAccent: '#6b6b6b',
   },
 };
 
+import React from 'react';
 
-
-import React from "react";
-
-import { MainStackNavigator } from "./src/navigation/StackNavigator";
-import BottomTabNavigator from "./src/navigation/TabNavigator";
-import DrawerNavigator from "./src/navigation/DrawerNavigator";
+import { MainStackNavigator } from './src/navigation/StackNavigator';
+import BottomTabNavigator from './src/navigation/TabNavigator';
+import DrawerNavigator from './src/navigation/DrawerNavigator';
 import PreferencesContext from './src/preferences/context';
 
-import { Text } from 'react-native-paper'
-import { createStackNavigator } from "@react-navigation/stack";
-import Home from "./src/screens/Home";
-import About from "./src/screens/About";
+import { Text } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from './src/screens/Home';
+import About from './src/screens/About';
 import SafeAreaView from 'react-native-safe-area-view';
-import { StatusBar } from 'react-native'
-
+import { StatusBar } from 'react-native';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -62,16 +61,16 @@ function App() {
         <NavigationContainer theme={theme}>
           {/* <MainStackNavigator /> */}
           {/* <BottomTabNavigator /> */}
-          <SafeAreaView>
-            {/* <Text>ey</Text> */}
-            <StatusBar barStyle="light-content" backgroundColor={theme?.colors.primaryDark}></StatusBar>
-          </SafeAreaView>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={theme?.colors.primaryDark}
+          />
+          {/* <SafeAreaView style={{ height: 0 }}>
+          </SafeAreaView> */}
           <DrawerNavigator />
         </NavigationContainer>
       </PaperProvider>
     </PreferencesContext.Provider>
-
-
   );
-};
+}
 export default App;
