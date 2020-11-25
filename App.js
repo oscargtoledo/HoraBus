@@ -1,4 +1,5 @@
 // ./App.js
+// require('dotenv').config();
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,

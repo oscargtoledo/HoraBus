@@ -85,26 +85,12 @@ class ScheduleView extends React.Component {
                     backgroundColor: theme?.colors.primary,
                   }}
                 >
-                  {/* {
-                    scheduleData.stops.map((item, index) => {
-                      return <DataTable.Title style={{ ...styles.TableText, flex: 1, flexWrap: 'wrap', margin: 5 }} key={index}>{item.name}</DataTable.Title>
-                    })
-                  } */}
                   {scheduleData.stops.map((item, index) => {
                     return (
                       <DataTable.Title
                         style={[
                           {
                             ...styles.TableText,
-                            // flex: 1,
-                            // flexGrow: 1,
-                            // flexWrap: 'wrap',
-                            // flexGrow: 1,
-                            // width: 500,
-                            // flexDirection: 'row',
-                            // margin: 5,
-                            // paddingRight: 10,
-                            // paddingLeft: 10,
                           },
                           index == this.state.selectedColumn
                             ? { backgroundColor: theme?.colors.columnAccent }
@@ -113,29 +99,12 @@ class ScheduleView extends React.Component {
                         key={index}
                         onPress={() => this.selectColumn(index)}
                       >
-                        <Text
-                        // style={{ flex: 1, flexWrap: 'wrap', flexShrink: 1 }}
-                        >
-                          {item}
-                        </Text>
+                        <Text>{item}</Text>
                       </DataTable.Title>
                     );
                   })}
                 </DataTable.Header>
                 <ScrollView>
-                  {/* {
-                    scheduleData.stops[0].hours.map((item, index) => {
-                      return (
-                        <DataTable.Row key={index} style={(index % 2 == 0) ? {} : { backgroundColor: theme?.colors.primary }}>
-                          {
-                            scheduleData.stops.map((item2, index2) => {
-                              return <DataTable.Cell style={{ ...styles.TableText, flex: 1, flexWrap: 'wrap' }} key={index * 100 + index2}>{item2.hours[index]}</DataTable.Cell>
-                            })
-                          }
-                        </DataTable.Row>
-                      )
-                    })
-                  } */}
                   {scheduleData.hours.map((item, index) => {
                     return (
                       <DataTable.Row
@@ -146,29 +115,25 @@ class ScheduleView extends React.Component {
                             : { backgroundColor: theme?.colors.accent }
                         }
                       >
-                        {
-                          item.map((item2, index2) => {
-                            return (
-                              <DataTable.Cell
-                                style={[
-                                  { ...styles.TableText },
-                                  index2 == this.state.selectedColumn
-                                    ? {
-                                        backgroundColor:
-                                          theme?.colors.columnAccent,
-                                        opacity: 0.8,
-                                      }
-                                    : {},
-                                ]}
-                                key={index * 100 + index2}
-                              >
-                                {item2}
-                              </DataTable.Cell>
-                            );
-                          })
-                          // <DataTable.Cell>{item}</DataTable.Cell>
-                          // console.log(item)
-                        }
+                        {item.map((item2, index2) => {
+                          return (
+                            <DataTable.Cell
+                              style={[
+                                { ...styles.TableText },
+                                index2 == this.state.selectedColumn
+                                  ? {
+                                      backgroundColor:
+                                        theme?.colors.columnAccent,
+                                      opacity: 0.8,
+                                    }
+                                  : {},
+                              ]}
+                              key={index * 100 + index2}
+                            >
+                              {item2}
+                            </DataTable.Cell>
+                          );
+                        })}
                       </DataTable.Row>
                     );
                   })}
@@ -176,6 +141,27 @@ class ScheduleView extends React.Component {
               </DataTable>
             </ScrollView>
           </Surface>
+          // <ScrollView horizontal>
+          //   <DataTable>
+          //     <DataTable.Header>
+          //       <DataTable.Title>Dessert</DataTable.Title>
+          //       <DataTable.Title>Calories</DataTable.Title>
+          //       <DataTable.Title>Fat</DataTable.Title>
+          //     </DataTable.Header>
+
+          //     <DataTable.Row>
+          //       <DataTable.Cell>Frt</DataTable.Cell>
+          //       <DataTable.Cell>159</DataTable.Cell>
+          //       <DataTable.Cell>6.0</DataTable.Cell>
+          //     </DataTable.Row>
+
+          //     <DataTable.Row>
+          //       <DataTable.Cell>Ice cream</DataTable.Cell>
+          //       <DataTable.Cell>237</DataTable.Cell>
+          //       <DataTable.Cell>8.0</DataTable.Cell>
+          //     </DataTable.Row>
+          //   </DataTable>
+          // </ScrollView>
         )}
       </Surface>
     );
