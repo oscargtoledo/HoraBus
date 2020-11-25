@@ -23,6 +23,7 @@ const CombinedDefaultTheme = {
     text: '#ffffff',
     accent: '#3c67a3',
     columnAccent: '#5390E0',
+    surface: '#01457A',
   },
 };
 const CombinedDarkTheme = {
@@ -35,6 +36,7 @@ const CombinedDarkTheme = {
     accent: '#424242',
     primary: '#212121',
     columnAccent: '#6b6b6b',
+    primary: '#424242',
   },
 };
 
@@ -62,12 +64,14 @@ function App() {
         <NavigationContainer theme={theme}>
           {/* <MainStackNavigator /> */}
           {/* <BottomTabNavigator /> */}
+
+          {/* <SafeAreaView backgroundColor={theme?.colors.primary}> */}
+          {/* <Text>ey</Text> */}
           <StatusBar
             barStyle="light-content"
             backgroundColor={theme?.colors.primaryDark}
-          />
-          {/* <SafeAreaView style={{ height: 0 }}>
-          </SafeAreaView> */}
+          ></StatusBar>
+          {/* </SafeAreaView> */}
           <DrawerNavigator />
         </NavigationContainer>
       </PaperProvider>
