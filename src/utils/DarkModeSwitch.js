@@ -22,13 +22,7 @@ function DarkModeSwitch(props) {
         justifyContent: 'center',
       }}
     >
-      <Text
-        style={[
-          isThemeDark ? { color: theme?.colors.text } : { color: 'black' },
-        ]}
-      >
-        Dark Mode
-      </Text>
+      <Text style={{ color: theme?.colors.text }}>Dark Mode</Text>
       {/* <TouchableRipple > */}
       <Switch
         onValueChange={() => toggleTheme()}

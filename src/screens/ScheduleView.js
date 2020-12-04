@@ -51,7 +51,6 @@ class ScheduleView extends React.Component {
   render() {
     // this.retrieveSchedule()
     const scheduleData = this.state.schedule;
-    console.log(scheduleData === null);
     const isFetching = scheduleData === null;
     const { theme } = this.props;
     return (

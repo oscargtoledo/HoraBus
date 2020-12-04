@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Buschedule-App",
-    "slug": "Buschedule-App",
+    "name": "HoraBus",
+    "slug": "HoraBus",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

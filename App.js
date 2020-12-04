@@ -14,21 +14,25 @@ const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
   ...NavigationDefaultTheme,
   // roundness: 10,
+  dark: false,
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
     primary: '#01579b',
     primaryDark: '#002f6c',
     primaryLight: '#4f83cc',
-    text: '#ffffff',
+    background: '#01579b',
     accent: '#3c67a3',
     columnAccent: '#5390E0',
     surface: '#01457A',
+    card: '#224C6B',
+    text: '#ffffff',
   },
 };
 const CombinedDarkTheme = {
   ...PaperDarkTheme,
   ...NavigationDarkTheme,
+  dark: true,
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,

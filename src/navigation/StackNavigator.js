@@ -1,22 +1,23 @@
 // ./navigation/StackNavigator.js
 
-import React from "react";
-import { createStackNavigator, TransitionPresets } from "@react-navigation/stack";
+import React from 'react';
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
 
-import Home from "../screens/Home";
-import About from "../screens/About";
-import Contact from "../screens/Contacts";
-import ScheduleSelector from "../screens/ScheduleSelector";
-import ScheduleView from "../screens/ScheduleView";
+import Home from '../screens/Home';
+import About from '../screens/About';
+import Contact from '../screens/Contacts';
+import ScheduleSelector from '../screens/ScheduleSelector';
+import ScheduleView from '../screens/ScheduleView';
+import TwitterFeed from '../screens/TwitterFeed';
 import { Switch, useTheme, Appbar, TouchableRipple } from 'react-native-paper';
 import { Text, View } from 'react-native';
 // import PreferencesContext from '../PreferencesContext';
 import { DarkModeSwitch as DKSwitch } from '../utils/DarkModeSwitch';
 import GeneralMenu from '../utils/GeneralMenu';
 const Stack = createStackNavigator();
-
-
-
 
 const MainStackNavigator = ({ scene }) => {
   const theme = useTheme();
@@ -27,7 +28,6 @@ const MainStackNavigator = ({ scene }) => {
     // headerStyle: {
     //   backgroundColor: '#f4511e'
     // }
-
   };
 
   return (
@@ -35,9 +35,9 @@ const MainStackNavigator = ({ scene }) => {
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
-          backgroundColor: theme?.colors.primary
+          backgroundColor: theme?.colors.primary,
         },
-        headerRight: () => (<GeneralMenu />)
+        headerRight: () => <GeneralMenu />,
       }}
     >
       <Stack.Screen name="Home" component={Home} />
@@ -47,18 +47,39 @@ const MainStackNavigator = ({ scene }) => {
 };
 
 const ContactStackNavigator = () => {
-
   return (
     // <Stack.Navigator screenOptions={ScreenOptions}>
     <Stack.Navigator
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
-          backgroundColor: theme?.colors.primary
+          backgroundColor: theme?.colors.primary,
         },
-        headerRight: () => (<DKSwitch />)
-      }}>
+        headerRight: () => <DKSwitch />,
+      }}
+    >
       <Stack.Screen name="Contact" component={Contact} />
+    </Stack.Navigator>
+  );
+};
+
+const TwitterNavigator = () => {
+  const theme = useTheme();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        ...TransitionPresets.SlideFromRightIOS,
+        headerStyle: {
+          backgroundColor: theme?.colors.primary,
+        },
+        headerRight: () => <GeneralMenu />,
+      }}
+    >
+      <Stack.Screen
+        name="View Tweets"
+        component={TwitterFeed}
+        options={{ headerRight: () => <DKSwitch /> }}
+      />
     </Stack.Navigator>
   );
 };
@@ -70,23 +91,28 @@ const ScheduleNavigator = () => {
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
-          backgroundColor: theme?.colors.primary
+          backgroundColor: theme?.colors.primary,
         },
-        headerRight: () => (<GeneralMenu />)
+        headerRight: () => <GeneralMenu />,
       }}
     >
       <Stack.Screen
         name="Select Schedule"
         component={ScheduleSelector}
-        options={{ headerRight: () => (<DKSwitch />) }}
+        options={{ headerRight: () => <DKSwitch /> }}
       />
       <Stack.Screen
         name="Schedule Viewer"
         component={ScheduleView}
-      // options={({ route }) => ({ title: route.params.routeName })}
+        // options={({ route }) => ({ title: route.params.routeName })}
       />
     </Stack.Navigator>
   );
 };
 
-export { MainStackNavigator, ContactStackNavigator, ScheduleNavigator };
+export {
+  MainStackNavigator,
+  ContactStackNavigator,
+  ScheduleNavigator,
+  TwitterNavigator,
+};
