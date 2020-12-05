@@ -12,7 +12,14 @@ import Contact from '../screens/Contacts';
 import ScheduleSelector from '../screens/ScheduleSelector';
 import ScheduleView from '../screens/ScheduleView';
 import TwitterFeed from '../screens/TwitterFeed';
-import { Switch, useTheme, Appbar, TouchableRipple } from 'react-native-paper';
+import {
+  Switch,
+  useTheme,
+  Appbar,
+  TouchableRipple,
+  ToggleButton,
+  Button,
+} from 'react-native-paper';
 import { Text, View } from 'react-native';
 // import PreferencesContext from '../PreferencesContext';
 import { DarkModeSwitch as DKSwitch } from '../utils/DarkModeSwitch';
@@ -63,7 +70,7 @@ const ContactStackNavigator = () => {
   );
 };
 
-const TwitterNavigator = () => {
+const TwitterNavigator = ({ navigation }) => {
   const theme = useTheme();
   return (
     <Stack.Navigator
@@ -78,13 +85,22 @@ const TwitterNavigator = () => {
       <Stack.Screen
         name="View Tweets"
         component={TwitterFeed}
-        options={{ headerRight: () => <DKSwitch /> }}
+        options={{
+          headerRight: () => <DKSwitch />,
+          headerLeft: () => (
+            <ToggleButton
+              mode="contained"
+              icon="menu"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        }}
       />
     </Stack.Navigator>
   );
 };
 
-const ScheduleNavigator = () => {
+const ScheduleNavigator = ({ navigation }) => {
   const theme = useTheme();
   return (
     <Stack.Navigator
@@ -99,7 +115,16 @@ const ScheduleNavigator = () => {
       <Stack.Screen
         name="Select Schedule"
         component={ScheduleSelector}
-        options={{ headerRight: () => <DKSwitch /> }}
+        options={{
+          headerRight: () => <DKSwitch />,
+          headerLeft: () => (
+            <ToggleButton
+              mode="contained"
+              icon="menu"
+              onPress={() => navigation.toggleDrawer()}
+            />
+          ),
+        }}
       />
       <Stack.Screen
         name="Schedule Viewer"
