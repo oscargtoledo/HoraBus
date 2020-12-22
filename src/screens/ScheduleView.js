@@ -2,7 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native';
-import { View, StyleSheet, Button } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Button,
+  VirtualizedList,
+  FlatList,
+  Image,
+  Animated,
+} from 'react-native';
 import {
   Surface,
   DataTable,
@@ -13,14 +21,68 @@ import {
 } from 'react-native-paper';
 import { back } from 'react-native/Libraries/Animated/src/Easing';
 import APIClient from '../utils/APIClient';
+
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+  Cols,
+  Cell,
+} from 'react-native-table-component';
+
+import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 var classNames = require('classnames');
 
-class ScheduleTable extends React.Component {}
+const ScheduleTableRowData = React.memo(({}) => {
+  const theme = useTheme();
+});
+
+const ScheduleTableRow = ({ item, index, selectedColumns }) => {
+  const theme = useTheme();
+  return (
+    // <Text>e</Text>
+    <DataTable.Row
+      key={index}
+      style={
+        index % 2 == 0
+          ? { backgroundColor: theme?.colors.primaryLight }
+          : { backgroundColor: theme?.colors.accent }
+      }
+    >
+      {item.map((item2, index2) => {
+        return (
+          <DataTable.Cell
+            style={[
+              { ...styles.TableText },
+              // index2 == this.state.selectedColumn
+              selectedColumns.includes(index2)
+                ? {
+                    backgroundColor: theme?.colors.columnAccent,
+                    opacity: 0.8,
+                  }
+                : {},
+            ]}
+            key={index * 100 + index2}
+          >
+            {item2}
+          </DataTable.Cell>
+        );
+      })}
+    </DataTable.Row>
+  );
+};
 
 class ScheduleView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { schedule: null, selectedColumn: null };
+    this.state = {
+      schedule: null,
+      selectedColumn: null,
+      scheduleScale: 1,
+      selectedColumns: [],
+    };
   }
   componentDidMount() {
     // console.log("mounted")
@@ -38,15 +100,90 @@ class ScheduleView extends React.Component {
       console.log(ex);
     }
   }
-
-  selectColumn(index) {
-    if (index == this.state.selectedColumn) {
-      this.setState({ selectedColumn: null });
-    } else {
-      this.setState({ selectedColumn: index });
-    }
-    console.log(index);
+  componentDidUpdate() {
+    console.log(this.state.selectedColumns);
   }
+  // selectColumn(index) {
+  //   if (index == this.state.selectedColumn) {
+  //     this.setState({ selectedColumn: null });
+  //   } else {
+  //     this.setState({ selectedColumn: index });
+  //   }
+  //   console.log(index);
+  // }
+  selectColumn(index) {
+    // if (index == this.state.selectedColumn) {
+    //   this.setState({ selectedColumn: null });
+    // } else {
+    //   this.setState({ selectedColumn: index });
+    // }
+    var ind = this.state.selectedColumns.indexOf(index);
+    console.log('index = ' + ind);
+    if (ind !== -1) {
+      var temp = this.state.selectedColumns;
+      temp.splice(ind, 1);
+      console.log('temp = ' + temp);
+      this.setState(prevState => ({
+        selectedColumns: temp,
+      }));
+    } else {
+      this.setState(prevState => ({
+        selectedColumns: [...prevState.selectedColumns, index],
+      }));
+    }
+
+    // console.log(index);
+  }
+
+  scale = new Animated.Value(1);
+  onZoomEvent = Animated.event(
+    [
+      {
+        nativeEvent: { scale: this.scale },
+      },
+    ],
+    {
+      useNativeDriver: true,
+    }
+  );
+  onZoomStateChange = event => {
+    if (event.nativeEvent.oldState === State.ACTIVE) {
+      Animated.spring(this.scale, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  // render() {
+  //   // this.retrieveSchedule()
+  //   const scheduleData = this.state.schedule;
+  //   const isFetching = scheduleData === null;
+  //   const { theme } = this.props;
+  //   return (
+  //     <Surface style={styles.center}>
+  //       {isFetching ? (
+  //         // <Text>loading</Text>
+  //         <ActivityIndicator size="large" />
+  //       ) : (
+  //         <PinchGestureHandler
+  //           onGestureEvent={() => {
+  //             this.onZoomEvent;
+  //             console.log(this.scale);
+  //           }}
+  //           onHandlerStateChange={this.onZoomStateChange}
+  //         >
+  //           <View>
+  //             <Animated.Image
+  //               style={{ transform: [{ scale: this.scale }] }}
+  //               source={require('../../assets/icon.png')}
+  //             ></Animated.Image>
+  //           </View>
+  //         </PinchGestureHandler>
+  //       )}
+  //     </Surface>
+  //   );
+  // }
 
   render() {
     // this.retrieveSchedule()
@@ -79,6 +216,7 @@ class ScheduleView extends React.Component {
                   flexGrow: 1,
                 }}
               >
+                {/* Stops names header */}
                 <DataTable.Header
                   style={{
                     backgroundColor: theme?.colors.primary,
@@ -91,7 +229,8 @@ class ScheduleView extends React.Component {
                           {
                             ...styles.TableText,
                           },
-                          index == this.state.selectedColumn
+                          // index == this.state.selectedColumn
+                          this.state.selectedColumns.includes(index)
                             ? { backgroundColor: theme?.colors.columnAccent }
                             : {},
                         ]}
@@ -103,64 +242,54 @@ class ScheduleView extends React.Component {
                     );
                   })}
                 </DataTable.Header>
+                {/* Stops names header */}
+
                 <ScrollView>
                   {scheduleData.hours.map((item, index) => {
                     return (
-                      <DataTable.Row
-                        key={index}
-                        style={
-                          index % 2 == 0
-                            ? { backgroundColor: theme?.colors.primaryLight }
-                            : { backgroundColor: theme?.colors.accent }
-                        }
-                      >
-                        {item.map((item2, index2) => {
-                          return (
-                            <DataTable.Cell
-                              style={[
-                                { ...styles.TableText },
-                                index2 == this.state.selectedColumn
-                                  ? {
-                                      backgroundColor:
-                                        theme?.colors.columnAccent,
-                                      opacity: 0.8,
-                                    }
-                                  : {},
-                              ]}
-                              key={index * 100 + index2}
-                            >
-                              {item2}
-                            </DataTable.Cell>
-                          );
-                        })}
-                      </DataTable.Row>
+                      <ScheduleTableRow
+                        item={item}
+                        index={index}
+                        selectedColumns={this.state.selectedColumns}
+                      />
                     );
+                    // return (
+                    // <DataTable.Row
+                    //   key={index}
+                    //   style={
+                    //     index % 2 == 0
+                    //       ? { backgroundColor: theme?.colors.primaryLight }
+                    //       : { backgroundColor: theme?.colors.accent }
+                    //   }
+                    // >
+                    //   {item.map((item2, index2) => {
+                    //     return (
+                    //       <DataTable.Cell
+                    //         style={[
+                    //           { ...styles.TableText },
+                    //           // index2 == this.state.selectedColumn
+                    //           this.state.selectedColumns.includes(index2)
+                    //             ? {
+                    //                 backgroundColor:
+                    //                   theme?.colors.columnAccent,
+                    //                 opacity: 0.8,
+                    //               }
+                    //             : {},
+                    //         ]}
+                    //         key={index * 100 + index2}
+                    //       >
+                    //         {item2}
+                    //       </DataTable.Cell>
+                    //     );
+                    //   })}
+                    // </DataTable.Row>
+
+                    // );
                   })}
                 </ScrollView>
               </DataTable>
             </ScrollView>
           </Surface>
-          // <ScrollView horizontal>
-          //   <DataTable>
-          //     <DataTable.Header>
-          //       <DataTable.Title>Dessert</DataTable.Title>
-          //       <DataTable.Title>Calories</DataTable.Title>
-          //       <DataTable.Title>Fat</DataTable.Title>
-          //     </DataTable.Header>
-
-          //     <DataTable.Row>
-          //       <DataTable.Cell>Frt</DataTable.Cell>
-          //       <DataTable.Cell>159</DataTable.Cell>
-          //       <DataTable.Cell>6.0</DataTable.Cell>
-          //     </DataTable.Row>
-
-          //     <DataTable.Row>
-          //       <DataTable.Cell>Ice cream</DataTable.Cell>
-          //       <DataTable.Cell>237</DataTable.Cell>
-          //       <DataTable.Cell>8.0</DataTable.Cell>
-          //     </DataTable.Row>
-          //   </DataTable>
-          // </ScrollView>
         )}
       </Surface>
     );
