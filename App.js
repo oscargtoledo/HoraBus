@@ -60,10 +60,18 @@ import { StatusBar } from 'react-native';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
+  const [isHidingUnselected, setHideUnselected] = React.useState(false);
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
   return (
-    <PreferencesContext.Provider value={{ isThemeDark, setIsThemeDark }}>
+    <PreferencesContext.Provider
+      value={{
+        isThemeDark,
+        setIsThemeDark,
+        isHidingUnselected,
+        setHideUnselected,
+      }}
+    >
       <PaperProvider theme={theme}>
         <NavigationContainer theme={theme}>
           {/* <MainStackNavigator /> */}

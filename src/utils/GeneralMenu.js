@@ -6,6 +6,7 @@ import {
   Text,
   ToggleButton,
   Surface,
+  Switch,
 } from 'react-native-paper';
 import { DarkModeSwitch } from '../utils/DarkModeSwitch';
 
@@ -19,7 +20,12 @@ import usePreferences from '../preferences/usePreferences';
 
 const GeneralMenu = () => {
   const theme = useTheme();
-  const { isThemeDark, toggleTheme } = usePreferences();
+  const {
+    isThemeDark,
+    toggleTheme,
+    isHidingUnselected,
+    toggleHideSelected,
+  } = usePreferences();
 
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
@@ -44,6 +50,21 @@ const GeneralMenu = () => {
         statusBarHeight={60}
       >
         <DarkModeSwitch />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{ color: theme?.colors.text }}>Dark Mode</Text>
+          <Switch
+            onValueChange={() => toggleHideSelected()}
+            color={'red'}
+            value={isHidingUnselected}
+          ></Switch>
+        </View>
         {/* <Menu.Item onPress={() => { toggleTheme() }} title="Toggle Dark/Light theme" /> */}
       </Menu>
     </View>

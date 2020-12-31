@@ -34,15 +34,13 @@ import {
 
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 var classNames = require('classnames');
-
-const ScheduleTableRowData = React.memo(({}) => {
-  const theme = useTheme();
-});
+import usePreferences from '../preferences/usePreferences';
 
 const ScheduleTableRow = ({ item, index, selectedColumns }) => {
   const theme = useTheme();
   return (
     // <Text>e</Text>
+
     <DataTable.Row
       key={index}
       style={
@@ -71,6 +69,58 @@ const ScheduleTableRow = ({ item, index, selectedColumns }) => {
         );
       })}
     </DataTable.Row>
+  );
+};
+
+const CustomRow = ({ item, index, selected }) => {
+  const theme = useTheme();
+  return (
+    <Surface
+      style={{
+        flex: 1,
+        textAlign: 'center',
+        // justifyContent: 'center',
+        // alignContent: 'center',
+        backgroundColor: 'green',
+
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        // width: 0,
+        // margin: 10,
+        // flexGrow: 2,
+        // flexWrap: 'wrap',
+      }}
+    >
+      {item.map((hour, hourIndex) => {
+        // if (hourIndex < 3)
+        return (
+          <Text
+            key={index * 10 + hourIndex}
+            style={[
+              {
+                ...styles.tableElement,
+                flex: 1,
+                textAlign: 'center',
+                // margin: 3,
+                // minHeight: 100,
+                padding: 10,
+                // width: 100,
+                // backgroundColor: 'red',
+                alignContent: 'center',
+              },
+              selected
+                ? { backgroundColor: theme?.colors.columnAccent }
+                : hourIndex % 2
+                ? { backgroundColor: theme?.colors.primaryLight }
+                : { backgroundColor: theme?.colors.primary },
+            ]}
+          >
+            {hour}
+          </Text>
+        );
+      })}
+    </Surface>
   );
 };
 
@@ -117,6 +167,7 @@ class ScheduleView extends React.Component {
     // } else {
     //   this.setState({ selectedColumn: index });
     // }
+    console.log('Selected ' + index);
     var ind = this.state.selectedColumns.indexOf(index);
     console.log('index = ' + ind);
     if (ind !== -1) {
@@ -190,104 +241,129 @@ class ScheduleView extends React.Component {
     const scheduleData = this.state.schedule;
     const isFetching = scheduleData === null;
     const { theme } = this.props;
+
     return (
-      <Surface style={styles.center}>
+      // <Surface style={styles.center}>
+      <Surface
+        style={{
+          flex: 1,
+          // flexDirection: 'row',
+          // justifyContent: 'flex-end',
+          // alignItems: 'center',
+          // textAlign: 'center',
+        }}
+      >
         {isFetching ? (
           // <Text>loading</Text>
           <ActivityIndicator size="large" />
         ) : (
-          <Surface style={{ overflow: 'scroll' }}>
-            <Text
+          <Surface style={{ flex: 1 }}>
+            <Surface
               style={{
-                textAlign: 'center',
-                fontSize: 20,
                 backgroundColor: theme?.colors.primaryDark,
+                alignContent: 'center',
               }}
             >
-              {scheduleData.routeName}
-            </Text>
-            <ScrollView horizontal style={{ flexWrap: 'wrap' }}>
-              <DataTable
-                style={{
-                  width: 1000,
-                  flex: 1,
-                  flexDirection: 'column',
-                  flexWrap: 'wrap',
-                  flexGrow: 1,
-                }}
-              >
-                {/* Stops names header */}
-                <DataTable.Header
+              <Text style={{ textAlign: 'center', fontSize: 20 }}>
+                {scheduleData.routeName}
+              </Text>
+            </Surface>
+            <ScrollView horizontal>
+              <Surface>
+                <Surface
                   style={{
-                    backgroundColor: theme?.colors.primary,
+                    flex: 1,
+                    flexDirection: 'row',
+                    // justifyContent: 'center',
+                    justifyContent: 'space-around',
+                    // alignContent: 'center',
+                    // alignContent: 'space-around',
+                    alignItems: 'stretch',
+                    // width: 1000,
                   }}
                 >
-                  {scheduleData.stops.map((item, index) => {
+                  {scheduleData.stops.map((stop, stopIndex) => {
                     return (
-                      <DataTable.Title
+                      <Text
+                        onPress={() => this.selectColumn(stopIndex)}
                         style={[
                           {
-                            ...styles.TableText,
+                            // flex: 1, padding: 7
+                            // ...styles.TableText,
+                            ...styles.tableElement,
+                            // alignSelf: 'center',
+                            textAlign: 'center',
+                            textAlignVertical: 'center',
+                            flex: 1,
                           },
-                          // index == this.state.selectedColumn
-                          this.state.selectedColumns.includes(index)
+                          this.state.selectedColumns.includes(stopIndex)
                             ? { backgroundColor: theme?.colors.columnAccent }
                             : {},
                         ]}
-                        key={index}
-                        onPress={() => this.selectColumn(index)}
+                        key={stopIndex}
                       >
-                        <Text>{item}</Text>
-                      </DataTable.Title>
+                        {stop}
+                      </Text>
                     );
                   })}
-                </DataTable.Header>
-                {/* Stops names header */}
+                </Surface>
+                <Surface
+                  style={{
+                    flex: 20,
+                    flexDirection: 'row',
+                    // backgroundColor: 'blue',
+                  }}
+                >
+                  <ScrollView contentContainerStyle={{}}>
+                    <Surface
+                      style={{
+                        flex: 1,
 
-                <ScrollView>
-                  {scheduleData.hours.map((item, index) => {
-                    return (
-                      <ScheduleTableRow
-                        item={item}
-                        index={index}
-                        selectedColumns={this.state.selectedColumns}
-                      />
-                    );
-                    // return (
-                    // <DataTable.Row
-                    //   key={index}
-                    //   style={
-                    //     index % 2 == 0
-                    //       ? { backgroundColor: theme?.colors.primaryLight }
-                    //       : { backgroundColor: theme?.colors.accent }
-                    //   }
-                    // >
-                    //   {item.map((item2, index2) => {
-                    //     return (
-                    //       <DataTable.Cell
-                    //         style={[
-                    //           { ...styles.TableText },
-                    //           // index2 == this.state.selectedColumn
-                    //           this.state.selectedColumns.includes(index2)
-                    //             ? {
-                    //                 backgroundColor:
-                    //                   theme?.colors.columnAccent,
-                    //                 opacity: 0.8,
-                    //               }
-                    //             : {},
-                    //         ]}
-                    //         key={index * 100 + index2}
-                    //       >
-                    //         {item2}
-                    //       </DataTable.Cell>
-                    //     );
-                    //   })}
-                    // </DataTable.Row>
+                        flexDirection: 'row',
+                        backgroundColor: 'red',
+                        // alignItems: 'stretch',
+                      }}
+                    >
+                      {scheduleData.hours.map((hours, hoursIndex) => {
+                        // if (
+                        //   this.state.selectedColumns.includes(hoursIndex) &&
+                        //   isHidingUnselected
+                        // )
+                        return (
+                          <CustomRow
+                            key={hoursIndex}
+                            index={hoursIndex}
+                            item={hours}
+                            // selectedColumns={this.state.selectedColumns}
+                            selected={this.state.selectedColumns.includes(
+                              hoursIndex
+                            )}
+                          />
+                        );
+                      })}
+                    </Surface>
+                  </ScrollView>
+                </Surface>
 
-                    // );
-                  })}
-                </ScrollView>
-              </DataTable>
+                {/* <Surface style={{ flex: 1 }}>
+              <ScrollView>
+                {scheduleData.hours.map((hours, hoursIndex) => {
+                  return (
+                    <CustomRow
+                      key={hoursIndex}
+                      index={hoursIndex}
+                      item={hours}
+                      selectedColumns={this.state.selectedColumns}
+                    />
+                  );
+                })}
+              </ScrollView>
+            </Surface> */}
+
+                {/* 
+
+             */}
+              </Surface>
             </ScrollView>
           </Surface>
         )}
@@ -297,6 +373,9 @@ class ScheduleView extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  tableElement: {
+    width: 100,
+  },
   center: {
     flex: 1,
     justifyContent: 'center',
@@ -321,11 +400,14 @@ const styles = StyleSheet.create({
     // margin: 10,
     flex: 1,
     textAlign: 'center',
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: 0,
-    flexGrow: 2,
-    flexWrap: 'wrap',
+    // textAlignVertical: 'center',
+    // justifyContent: 'center',
+    // alignContent: 'center',
+    // alignItems: 'center',
+    alignSelf: 'center',
+    width: 100,
+    // flexGrow: 2,
+    // flexWrap: 'wrap',
   },
 });
 export default withTheme(ScheduleView);
