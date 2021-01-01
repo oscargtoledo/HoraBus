@@ -58,7 +58,7 @@ const GeneralMenu = () => {
             justifyContent: 'center',
           }}
         >
-          <Text style={{ color: theme?.colors.text }}>Dark Mode</Text>
+          <Text style={{ color: theme?.colors.text }}>Filter Mode</Text>
           <Switch
             onValueChange={() => toggleHideSelected()}
             color={'red'}
