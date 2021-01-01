@@ -35,6 +35,7 @@ import {
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 var classNames = require('classnames');
 import usePreferences from '../preferences/usePreferences';
+import PreferencesContext from '../preferences/context';
 
 const ScheduleTableRow = ({ item, index, selectedColumns }) => {
   const theme = useTheme();
@@ -74,18 +75,19 @@ const ScheduleTableRow = ({ item, index, selectedColumns }) => {
 
 const CustomRow = ({ item, index, selected }) => {
   const theme = useTheme();
+  const { isHidingUnselected, toggleHideSelected } = usePreferences();
   return (
     <Surface
       style={{
-        flex: 1,
+        // flex: 1,
         textAlign: 'center',
         // justifyContent: 'center',
         // alignContent: 'center',
-        backgroundColor: 'green',
-
+        backgroundColor: theme?.colors.primary,
+        // width: 30,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'stretch',
+        // alignItems: 'stretch',
         // width: 0,
         // margin: 10,
         // flexGrow: 2,
@@ -109,7 +111,11 @@ const CustomRow = ({ item, index, selected }) => {
                 // backgroundColor: 'red',
                 alignContent: 'center',
               },
-              selected
+              isHidingUnselected
+                ? hourIndex % 2
+                  ? { backgroundColor: theme?.colors.primaryLight }
+                  : { backgroundColor: theme?.colors.primary }
+                : selected
                 ? { backgroundColor: theme?.colors.columnAccent }
                 : hourIndex % 2
                 ? { backgroundColor: theme?.colors.primaryLight }
@@ -314,35 +320,52 @@ class ScheduleView extends React.Component {
                     // backgroundColor: 'blue',
                   }}
                 >
-                  <ScrollView contentContainerStyle={{}}>
-                    <Surface
-                      style={{
-                        flex: 1,
+                  <PreferencesContext.Consumer>
+                    {({ isHidingUnselected, toggleHideSelected }) => (
+                      <ScrollView contentContainerStyle={{}}>
+                        <Surface
+                          style={{
+                            flex: 1,
 
-                        flexDirection: 'row',
-                        backgroundColor: 'red',
-                        // alignItems: 'stretch',
-                      }}
-                    >
-                      {scheduleData.hours.map((hours, hoursIndex) => {
-                        // if (
-                        //   this.state.selectedColumns.includes(hoursIndex) &&
-                        //   isHidingUnselected
-                        // )
-                        return (
-                          <CustomRow
-                            key={hoursIndex}
-                            index={hoursIndex}
-                            item={hours}
-                            // selectedColumns={this.state.selectedColumns}
-                            selected={this.state.selectedColumns.includes(
-                              hoursIndex
-                            )}
-                          />
-                        );
-                      })}
-                    </Surface>
-                  </ScrollView>
+                            flexDirection: 'row',
+                            // backgroundColor: 'red',
+                            // alignItems: 'stretch',
+                          }}
+                        >
+                          {scheduleData.hours.map((hours, hoursIndex) => {
+                            if (isHidingUnselected) {
+                              if (
+                                this.state.selectedColumns.includes(hoursIndex)
+                              )
+                                return (
+                                  <CustomRow
+                                    key={hoursIndex}
+                                    index={hoursIndex}
+                                    item={hours}
+                                    // selectedColumns={this.state.selectedColumns}
+                                    selected={this.state.selectedColumns.includes(
+                                      hoursIndex
+                                    )}
+                                  />
+                                );
+                            } else {
+                              return (
+                                <CustomRow
+                                  key={hoursIndex}
+                                  index={hoursIndex}
+                                  item={hours}
+                                  // selectedColumns={this.state.selectedColumns}
+                                  selected={this.state.selectedColumns.includes(
+                                    hoursIndex
+                                  )}
+                                />
+                              );
+                            }
+                          })}
+                        </Surface>
+                      </ScrollView>
+                    )}
+                  </PreferencesContext.Consumer>
                 </Surface>
 
                 {/* <Surface style={{ flex: 1 }}>
