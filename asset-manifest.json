@@ -1,11 +1,11 @@
 {
   "files": {
-    "app.js": "/Buschedule-App/static/js/app.58f67228.chunk.js",
-    "app.js.map": "/Buschedule-App/static/js/app.58f67228.chunk.js.map",
+    "app.js": "/Buschedule-App/static/js/app.101f789b.chunk.js",
+    "app.js.map": "/Buschedule-App/static/js/app.101f789b.chunk.js.map",
     "runtime~app.js": "/Buschedule-App/static/js/runtime~app.da26a42b.js",
     "runtime~app.js.map": "/Buschedule-App/static/js/runtime~app.da26a42b.js.map",
-    "static/js/2.597e214b.chunk.js": "/Buschedule-App/static/js/2.597e214b.chunk.js",
-    "static/js/2.597e214b.chunk.js.map": "/Buschedule-App/static/js/2.597e214b.chunk.js.map",
+    "static/js/2.6cae0392.chunk.js": "/Buschedule-App/static/js/2.6cae0392.chunk.js",
+    "static/js/2.6cae0392.chunk.js.map": "/Buschedule-App/static/js/2.6cae0392.chunk.js.map",
     "fonts/MaterialCommunityIcons.ttf": "/Buschedule-App/./fonts/MaterialCommunityIcons.ttf",
     "favicon-16.png": "/Buschedule-App/favicon-16.png",
     "favicon-32.png": "/Buschedule-App/favicon-32.png",
@@ -13,11 +13,11 @@
     "index.html": "/Buschedule-App/index.html",
     "manifest.json": "/Buschedule-App/manifest.json",
     "serve.json": "/Buschedule-App/serve.json",
-    "static/js/2.597e214b.chunk.js.LICENSE.txt": "/Buschedule-App/static/js/2.597e214b.chunk.js.LICENSE.txt"
+    "static/js/2.6cae0392.chunk.js.LICENSE.txt": "/Buschedule-App/static/js/2.6cae0392.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.da26a42b.js",
-    "static/js/2.597e214b.chunk.js",
-    "static/js/app.58f67228.chunk.js"
+    "static/js/2.6cae0392.chunk.js",
+    "static/js/app.101f789b.chunk.js"
   ]
 }
