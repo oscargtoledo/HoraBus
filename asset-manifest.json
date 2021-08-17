@@ -1,23 +1,23 @@
 {
   "files": {
-    "app.js": "/Buschedule-App/static/js/app.101f789b.chunk.js",
-    "app.js.map": "/Buschedule-App/static/js/app.101f789b.chunk.js.map",
-    "runtime~app.js": "/Buschedule-App/static/js/runtime~app.da26a42b.js",
-    "runtime~app.js.map": "/Buschedule-App/static/js/runtime~app.da26a42b.js.map",
-    "static/js/2.6cae0392.chunk.js": "/Buschedule-App/static/js/2.6cae0392.chunk.js",
-    "static/js/2.6cae0392.chunk.js.map": "/Buschedule-App/static/js/2.6cae0392.chunk.js.map",
-    "fonts/MaterialCommunityIcons.ttf": "/Buschedule-App/./fonts/MaterialCommunityIcons.ttf",
-    "favicon-16.png": "/Buschedule-App/favicon-16.png",
-    "favicon-32.png": "/Buschedule-App/favicon-32.png",
-    "favicon.ico": "/Buschedule-App/favicon.ico",
-    "index.html": "/Buschedule-App/index.html",
-    "manifest.json": "/Buschedule-App/manifest.json",
-    "serve.json": "/Buschedule-App/serve.json",
-    "static/js/2.6cae0392.chunk.js.LICENSE.txt": "/Buschedule-App/static/js/2.6cae0392.chunk.js.LICENSE.txt"
+    "app.js": "/HoraBus/static/js/app.9dfa135e.chunk.js",
+    "app.js.map": "/HoraBus/static/js/app.9dfa135e.chunk.js.map",
+    "runtime~app.js": "/HoraBus/static/js/runtime~app.9f1bf0aa.js",
+    "runtime~app.js.map": "/HoraBus/static/js/runtime~app.9f1bf0aa.js.map",
+    "static/js/2.5db8a6de.chunk.js": "/HoraBus/static/js/2.5db8a6de.chunk.js",
+    "static/js/2.5db8a6de.chunk.js.map": "/HoraBus/static/js/2.5db8a6de.chunk.js.map",
+    "fonts/MaterialCommunityIcons.ttf": "/HoraBus/./fonts/MaterialCommunityIcons.ttf",
+    "favicon-16.png": "/HoraBus/favicon-16.png",
+    "favicon-32.png": "/HoraBus/favicon-32.png",
+    "favicon.ico": "/HoraBus/favicon.ico",
+    "index.html": "/HoraBus/index.html",
+    "manifest.json": "/HoraBus/manifest.json",
+    "serve.json": "/HoraBus/serve.json",
+    "static/js/2.5db8a6de.chunk.js.LICENSE.txt": "/HoraBus/static/js/2.5db8a6de.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime~app.da26a42b.js",
-    "static/js/2.6cae0392.chunk.js",
-    "static/js/app.101f789b.chunk.js"
+    "static/js/runtime~app.9f1bf0aa.js",
+    "static/js/2.5db8a6de.chunk.js",
+    "static/js/app.9dfa135e.chunk.js"
   ]
 }
