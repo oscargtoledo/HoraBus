@@ -10,7 +10,12 @@ import {
   ScrollView,
 } from 'react-native';
 // import {  } from "react-native-gesture-handler";
-import { Button, useTheme, Surface } from 'react-native-paper';
+import {
+  Button,
+  useTheme,
+  Surface,
+  ActivityIndicator,
+} from 'react-native-paper';
 import APIClient from '../utils/APIClient';
 
 const ScheduleSelector = ({ navigation }) => {
@@ -61,11 +66,14 @@ const ScheduleSelector = ({ navigation }) => {
         }}
       >
         <Button
-          style={{ backgroundColor: theme?.colors.accent }}
-          onPress={onRefresh}
+          mode="contained"
+          style={{ margin: 2 }}
+          onPress={() => onRefresh()}
         >
-          yo
+          Refresh
         </Button>
+        {refreshing ? <ActivityIndicator size="large" /> : <Text></Text>}
+
         {schedules.map((item, index) => {
           return (
             <Button /*style={{ backgroundColor: theme?.colors.accent }}*/

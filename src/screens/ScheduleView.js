@@ -11,6 +11,8 @@ import {
   Image,
   Animated,
   ScrollView,
+  TouchableOpacity,
+  TouchableHighlight,
 } from 'react-native';
 import {
   Surface,
@@ -80,14 +82,16 @@ const CustomRow = ({ item, index, selected }) => {
   return (
     <Surface
       style={{
-        // flex: 1,
+        flex: 1,
         textAlign: 'center',
         // justifyContent: 'center',
         // alignContent: 'center',
-        backgroundColor: theme?.colors.primary,
+        //backgroundColor: theme?.colors.primary,
+        backgroundColor: 'yellow',
         // width: 30,
         flexDirection: 'column',
-        justifyContent: 'center',
+        // justifyContent: 'center',  PREVIOUS
+
         // alignItems: 'stretch',
         // width: 0,
         // margin: 10,
@@ -103,7 +107,7 @@ const CustomRow = ({ item, index, selected }) => {
             style={[
               {
                 ...styles.tableElement,
-                flex: 1,
+                flexGrow: 1,
                 textAlign: 'center',
                 // margin: 3,
                 // minHeight: 100,
@@ -112,6 +116,7 @@ const CustomRow = ({ item, index, selected }) => {
                 // width: 100,
                 // backgroundColor: 'red',
                 alignContent: 'center',
+                // minHeight: 10,
               },
               isHidingUnselected
                 ? hourIndex % 2
@@ -124,7 +129,7 @@ const CustomRow = ({ item, index, selected }) => {
                 : { backgroundColor: theme?.colors.primary },
             ]}
           >
-            {hour}
+            {hour != '' ? hour : '-'}
           </Text>
         );
       })}
@@ -249,7 +254,7 @@ class ScheduleView extends React.Component {
     const scheduleData = this.state.schedule;
     const isFetching = scheduleData === null;
     const { theme } = this.props;
-
+    let screenHeight = Dimensions.get('window').height;
     return (
       // <Surface style={styles.center}>
       <Surface
@@ -265,14 +270,19 @@ class ScheduleView extends React.Component {
           // <Text>loading</Text>
           <ActivityIndicator size="large" />
         ) : (
-          <Surface style={{ flex: 1 }}>
+          <Surface style={{ flex: 1, justifyContent: 'center' }}>
             <Surface
               style={{
                 backgroundColor: theme?.colors.primaryDark,
                 alignContent: 'center',
               }}
             >
-              <Text style={{ textAlign: 'center', fontSize: 20 }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 20,
+                }}
+              >
                 {scheduleData.routeName}
               </Text>
             </Surface>
@@ -280,63 +290,73 @@ class ScheduleView extends React.Component {
             <PreferencesContext.Consumer>
               {({ isHidingUnselected, toggleHideSelected }) =>
                 !isHidingUnselected ? (
-                  <ScrollView horizontal>
-                    <Surface>
-                      <Surface
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          // justifyContent: 'center',
-                          justifyContent: 'space-around',
-                          // alignContent: 'center',
-                          // alignContent: 'space-around',
-                          alignItems: 'stretch',
-                          // width: 1000,
-                        }}
-                      >
-                        {scheduleData.stops.map((stop, stopIndex) => {
-                          return (
-                            <Text
-                              onPress={() => this.selectColumn(stopIndex)}
-                              style={[
-                                {
-                                  // flex: 1, padding: 7
-                                  // ...styles.TableText,
-                                  ...styles.tableElement,
-                                  // alignSelf: 'center',
-                                  textAlign: 'center',
-                                  textAlignVertical: 'center',
-                                  flex: 1,
-                                },
-                                this.state.selectedColumns.includes(stopIndex)
-                                  ? {
-                                      backgroundColor:
-                                        theme?.colors.columnAccent,
-                                    }
-                                  : {},
-                              ]}
-                              key={stopIndex}
-                            >
-                              {stop}
-                            </Text>
-                          );
-                        })}
-                      </Surface>
-                      <Surface
-                        style={{
-                          flex: 20,
-                          flexDirection: 'row',
-                          // backgroundColor: 'blue',
-                        }}
-                      >
-                        <ScrollView contentContainerStyle={{}}>
-                          <Surface
-                            style={{
-                              flex: 1,
+                  <View
+                    style={{
+                      flex: 1,
+                    }}
+                  >
+                    <ScrollView
+                      horizontal
+                      contentContainerStyle={{
+                        flexGrow: 1,
+                        alignContent: 'center',
+                      }}
+                    >
+                      <View style={{ flex: 1 }} id="horizontalContainer">
+                        <View
+                          id="stopNameRow"
+                          style={{
+                            flex: 1,
 
+                            flexDirection: 'row',
+                            // alignItems: 'stretch',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          {scheduleData.stops.map((stop, stopIndex) => {
+                            return (
+                              <TouchableOpacity
+                                activeOpacity={1}
+                                onPress={() => this.selectColumn(stopIndex)}
+                                style={[
+                                  {
+                                    flex: 1,
+                                    flexGrow: 1,
+                                    flexShrink: 1,
+                                    flexBasis: 0,
+                                    flexWrap: 'wrap',
+
+                                    // flex: 1,
+                                    // alignContent: 'center',
+                                    // flexDirection: 'row',
+                                    justifyContent: 'center', //Centered horizontally
+                                    alignItems: 'center', //Centered vertically
+                                  },
+                                  this.state.selectedColumns.includes(stopIndex)
+                                    ? {
+                                        backgroundColor:
+                                          theme?.colors.columnAccent,
+                                      }
+                                    : {},
+                                ]}
+                                key={stopIndex}
+                              >
+                                <Text>{stop}</Text>
+                              </TouchableOpacity>
+                            );
+                          })}
+                        </View>
+                        <View
+                          style={{
+                            flex: 15,
+                          }}
+                        >
+                          <ScrollView
+                            style={{}}
+                            showsVerticalScrollIndicator={false}
+                            contentContainerStyle={{
+                              height: 0,
                               flexDirection: 'row',
-                              // backgroundColor: 'red',
-                              // alignItems: 'stretch',
                             }}
                           >
                             {scheduleData.hours.map((hours, hoursIndex) => {
@@ -371,12 +391,14 @@ class ScheduleView extends React.Component {
                                 );
                               }
                             })}
-                          </Surface>
-                        </ScrollView>
-                      </Surface>
-                    </Surface>
-                  </ScrollView>
+                          </ScrollView>
+                        </View>
+                      </View>
+                    </ScrollView>
+                  </View>
                 ) : (
+                  //   </View>
+                  // </View>
                   <Surface>
                     <ScrollView horizontal>
                       <Surface
@@ -481,102 +503,6 @@ class ScheduleView extends React.Component {
                 )
               }
             </PreferencesContext.Consumer>
-
-            {/* <ScrollView horizontal>
-              <Surface>
-                <Surface
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    // justifyContent: 'center',
-                    justifyContent: 'space-around',
-                    // alignContent: 'center',
-                    // alignContent: 'space-around',
-                    alignItems: 'stretch',
-                    // width: 1000,
-                  }}
-                >
-                  {scheduleData.stops.map((stop, stopIndex) => {
-                    return (
-                      <Text
-                        onPress={() => this.selectColumn(stopIndex)}
-                        style={[
-                          {
-                            // flex: 1, padding: 7
-                            // ...styles.TableText,
-                            ...styles.tableElement,
-                            // alignSelf: 'center',
-                            textAlign: 'center',
-                            textAlignVertical: 'center',
-                            flex: 1,
-                          },
-                          this.state.selectedColumns.includes(stopIndex)
-                            ? { backgroundColor: theme?.colors.columnAccent }
-                            : {},
-                        ]}
-                        key={stopIndex}
-                      >
-                        {stop}
-                      </Text>
-                    );
-                  })}
-                </Surface>
-                <Surface
-                  style={{
-                    flex: 20,
-                    flexDirection: 'row',
-                    // backgroundColor: 'blue',
-                  }}
-                >
-                  <PreferencesContext.Consumer>
-                    {({ isHidingUnselected, toggleHideSelected }) => (
-                      <ScrollView contentContainerStyle={{}}>
-                        <Surface
-                          style={{
-                            flex: 1,
-
-                            flexDirection: 'row',
-                            // backgroundColor: 'red',
-                            // alignItems: 'stretch',
-                          }}
-                        >
-                          {scheduleData.hours.map((hours, hoursIndex) => {
-                            if (isHidingUnselected) {
-                              if (
-                                this.state.selectedColumns.includes(hoursIndex)
-                              )
-                                return (
-                                  <CustomRow
-                                    key={hoursIndex}
-                                    index={hoursIndex}
-                                    item={hours}
-                                    // selectedColumns={this.state.selectedColumns}
-                                    selected={this.state.selectedColumns.includes(
-                                      hoursIndex
-                                    )}
-                                  />
-                                );
-                            } else {
-                              return (
-                                <CustomRow
-                                  key={hoursIndex}
-                                  index={hoursIndex}
-                                  item={hours}
-                                  // selectedColumns={this.state.selectedColumns}
-                                  selected={this.state.selectedColumns.includes(
-                                    hoursIndex
-                                  )}
-                                />
-                              );
-                            }
-                          })}
-                        </Surface>
-                      </ScrollView>
-                    )}
-                  </PreferencesContext.Consumer>
-                </Surface>
-              </Surface>
-            </ScrollView> */}
           </Surface>
         )}
       </Surface>
