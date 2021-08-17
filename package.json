@@ -1,6 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "homepage": "https://nargarcyz.github.io/Buschedule-App",
+  "homepage": "https://oscargtoledo.github.io/Buschedule-App",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
