@@ -13,6 +13,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TouchableHighlight,
+  BackHandler,
 } from 'react-native';
 import {
   Surface,
@@ -325,7 +326,7 @@ class ScheduleView extends React.Component {
                                     flexShrink: 1,
                                     flexBasis: 0,
                                     flexWrap: 'wrap',
-
+                                    padding: 3,
                                     // flex: 1,
                                     // alignContent: 'center',
                                     // flexDirection: 'row',
@@ -341,14 +342,16 @@ class ScheduleView extends React.Component {
                                 ]}
                                 key={stopIndex}
                               >
-                                <Text>{stop}</Text>
+                                <Text style={{ textAlign: 'center' }}>
+                                  {stop}
+                                </Text>
                               </TouchableOpacity>
                             );
                           })}
                         </View>
                         <View
                           style={{
-                            flex: 15,
+                            flex: 10,
                           }}
                         >
                           <ScrollView

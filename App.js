@@ -56,13 +56,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import About from './src/screens/About';
 import SafeAreaView from 'react-native-safe-area-view';
-import { StatusBar } from 'react-native';
+import { StatusBar, BackHandler } from 'react-native';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   const [isHidingUnselected, setHideUnselected] = React.useState(false);
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
-
+  BackHandler.addEventListener('hardwareBackPress', function () {
+    return true;
+  });
   return (
     <PreferencesContext.Provider
       value={{

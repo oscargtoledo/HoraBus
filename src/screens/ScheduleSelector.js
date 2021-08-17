@@ -72,26 +72,27 @@ const ScheduleSelector = ({ navigation }) => {
         >
           Refresh
         </Button>
-        {refreshing ? <ActivityIndicator size="large" /> : <Text></Text>}
-
-        {schedules.map((item, index) => {
-          return (
-            <Button /*style={{ backgroundColor: theme?.colors.accent }}*/
-              key={item._id}
-              mode="contained"
-              onPress={() =>
-                navigation.navigate('Schedule Viewer', {
-                  routeId: item._id,
-                  routeName: item.routeName,
-                })
-              }
-              style={{ margin: 2 }}
-            >
-              {item.routeName}
-            </Button>
-          );
-        })}
-        {/* <Button key={2} mode="contained" title="Go to About Screen" onPress={() => navigation.navigate("Schedule Viewer")} /> */}
+        {refreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          schedules.map((item, index) => {
+            return (
+              <Button /*style={{ backgroundColor: theme?.colors.accent }}*/
+                key={item._id}
+                mode="contained"
+                onPress={() =>
+                  navigation.navigate('Schedule Viewer', {
+                    routeId: item._id,
+                    routeName: item.routeName,
+                  })
+                }
+                style={{ margin: 2 }}
+              >
+                {item.routeName}
+              </Button>
+            );
+          })
+        )}
       </ScrollView>
     </Surface>
   );

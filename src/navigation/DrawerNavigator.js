@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
-import { useWindowDimensions, Text, View } from 'react-native';
+import { useWindowDimensions, Text, View, BackHandler } from 'react-native';
 import {
   ContactStackNavigator,
   ScheduleNavigator,
@@ -43,6 +43,7 @@ function CustomDrawerContent({ navigation }) {
 const DrawerNavigator = () => {
   const dimensions = useWindowDimensions();
   const theme = useTheme();
+
   return (
     <Drawer.Navigator
       drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
