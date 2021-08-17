@@ -20,12 +20,8 @@ import usePreferences from '../preferences/usePreferences';
 
 const GeneralMenu = () => {
   const theme = useTheme();
-  const {
-    isThemeDark,
-    toggleTheme,
-    isHidingUnselected,
-    toggleHideSelected,
-  } = usePreferences();
+  const { isThemeDark, toggleTheme, isHidingUnselected, toggleHideSelected } =
+    usePreferences();
 
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);

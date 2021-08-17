@@ -10,6 +10,8 @@ if (releaseChannel === undefined) {
   API_URL = process.env.PRODUCTION_API_URL;
 }
 
+API_URL = 'https://buschedule-api.herokuapp.com';
+
 export default {
   API_URL,
 };

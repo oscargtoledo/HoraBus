@@ -22,6 +22,7 @@ const ScheduleSelector = ({ navigation }) => {
     try {
       const { data } = await APIClient.get('/schedules/names');
       setSchedules(data);
+      console.log(data);
     } catch (ex) {
       console.log(ex);
       console.log({ ...ex });
@@ -59,6 +60,12 @@ const ScheduleSelector = ({ navigation }) => {
           padding: 10,
         }}
       >
+        <Button
+          style={{ backgroundColor: theme?.colors.accent }}
+          onPress={onRefresh}
+        >
+          yo
+        </Button>
         {schedules.map((item, index) => {
           return (
             <Button /*style={{ backgroundColor: theme?.colors.accent }}*/

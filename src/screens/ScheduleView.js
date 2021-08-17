@@ -23,15 +23,15 @@ import {
 import { back } from 'react-native/Libraries/Animated/src/Easing';
 import APIClient from '../utils/APIClient';
 
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell,
-} from 'react-native-table-component';
+// import {
+//   Table,
+//   TableWrapper,
+//   Row,
+//   Rows,
+//   Col,
+//   Cols,
+//   Cell,
+// } from 'react-native-table-component';
 
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
 var classNames = require('classnames');
