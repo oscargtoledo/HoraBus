@@ -14,9 +14,7 @@ const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
   ...NavigationDefaultTheme,
   // roundness: 10,
-  // mode: 'adaptative',
   dark: false,
-
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
@@ -35,7 +33,6 @@ const CombinedDarkTheme = {
   ...PaperDarkTheme,
   ...NavigationDarkTheme,
   dark: true,
-
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
@@ -44,6 +41,7 @@ const CombinedDarkTheme = {
     primary: '#212121',
     columnAccent: '#6b6b6b',
     primary: '#424242',
+    primaryLight: '#6b6b6b',
   },
 };
 
@@ -63,7 +61,7 @@ import { StatusBar, BackHandler } from 'react-native';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
-  const [isHidingUnselected, setHideUnselected] = React.useState(false);
+  const [isHidingUnselected, setHideUnselected] = React.useState(true);
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
   BackHandler.addEventListener('hardwareBackPress', function () {
     return true;
