@@ -61,7 +61,7 @@ import { StatusBar, BackHandler } from 'react-native';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
-  const [isHidingUnselected, setHideUnselected] = React.useState(true);
+  const [isHidingUnselected, setHideUnselected] = React.useState(false);
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
   BackHandler.addEventListener('hardwareBackPress', function () {
     return true;
