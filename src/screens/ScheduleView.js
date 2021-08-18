@@ -47,9 +47,8 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
   return (
     <Surface
       style={[
-        [extraStyle ? { flexBasis: 100, flexGrow: 0, flexShrink: 0 } : {}],
         {
-          // flex: 1,
+          flex: 1,
           textAlign: 'center',
           shadowOpacity: 0,
           // flexGrow: 1,
@@ -67,6 +66,11 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
           // flexGrow: 2,
           // flexWrap: 'wrap',
         },
+        [
+          extraStyle
+            ? { flexBasis: 100, flexGrow: 0, flexShrink: 0, flex: 0 }
+            : {},
+        ],
       ]}
     >
       {stopName != null && (
@@ -277,7 +281,7 @@ class ScheduleView extends React.Component {
                         flexBasis: 0,
                         flexWrap: 'wrap',
                         padding: 3,
-                        justifyContent: 'center', //Centered horizontally
+                        // justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
                       },
                       this.state.selectedColumns.includes(stopIndex)
