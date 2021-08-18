@@ -14,7 +14,9 @@ const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
   ...NavigationDefaultTheme,
   // roundness: 10,
+  // mode: 'adaptative',
   dark: false,
+
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
@@ -33,6 +35,7 @@ const CombinedDarkTheme = {
   ...PaperDarkTheme,
   ...NavigationDarkTheme,
   dark: true,
+
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
