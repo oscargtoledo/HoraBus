@@ -79,6 +79,7 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
             {
               backgroundColor: theme?.colors.surface,
               flex: 1,
+              flexDirection: 'row',
               textAlignVertical: 'center',
               textAlign: 'center',
               height: 40,
@@ -264,7 +265,7 @@ class ScheduleView extends React.Component {
                 flex: 1,
 
                 flexDirection: 'row',
-                // alignItems: 'stretch',
+
                 justifyContent: 'space-between',
               }}
             >
@@ -281,7 +282,7 @@ class ScheduleView extends React.Component {
                         flexBasis: 0,
                         flexWrap: 'wrap',
                         padding: 3,
-                        // justifyContent: 'center', //Centered horizontally
+                        justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
                       },
                       this.state.selectedColumns.includes(stopIndex)
@@ -308,7 +309,8 @@ class ScheduleView extends React.Component {
                 contentContainerStyle={{
                   height: 0,
                   flexDirection: 'row',
-                  justifyContent: 'center',
+                  // justifyContent: 'center',
+                  // alignItems: 'center',
                 }}
               >
                 {scheduleData.hours.map((hours, hoursIndex) => {
