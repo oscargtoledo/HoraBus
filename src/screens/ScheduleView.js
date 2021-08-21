@@ -68,7 +68,7 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
         },
         [
           extraStyle
-            ? { flexBasis: 100, flexGrow: 0, flexShrink: 0, flex: 0 }
+            ? { flexBasis: 200, flexGrow: 0, flexShrink: 0, flex: 0 }
             : {},
         ],
       ]}
@@ -79,7 +79,6 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
             {
               backgroundColor: theme?.colors.surface,
               flex: 1,
-              flexDirection: 'row',
               textAlignVertical: 'center',
               textAlign: 'center',
               height: 40,
@@ -265,7 +264,7 @@ class ScheduleView extends React.Component {
                 flex: 1,
 
                 flexDirection: 'row',
-
+                // alignItems: 'stretch',
                 justifyContent: 'space-between',
               }}
             >
@@ -309,8 +308,7 @@ class ScheduleView extends React.Component {
                 contentContainerStyle={{
                   height: 0,
                   flexDirection: 'row',
-                  // justifyContent: 'center',
-                  // alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 {scheduleData.hours.map((hours, hoursIndex) => {
@@ -405,12 +403,12 @@ class ScheduleView extends React.Component {
         >
           <ScrollView
             contentContainerStyle={{
-              // flex: 1,
+              flex: 1,
               flexGrow: 1,
 
-              // flexBasis: 200,
+              flexBasis: 2000,
               // width: '100%',
-              // height: 1000,
+              height: '100%',
               // flexDirection: 'row',
               // alignContent: 'center',
               // alignSelf: 'center',

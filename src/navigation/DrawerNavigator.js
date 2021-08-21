@@ -25,7 +25,7 @@ function CustomDrawerContent({ navigation }) {
           navigation.navigate('Home');
         }}
       >
-        Select Schedule
+        Horaris
       </Button>
       <Button
         mode="contained"
@@ -34,7 +34,16 @@ function CustomDrawerContent({ navigation }) {
           navigation.navigate('TwitterFeed');
         }}
       >
-        Twitter Feed
+        Twitter
+      </Button>
+      <Button
+        mode="contained"
+        onPress={() => {
+          // Navigate using the `navigation` prop that you received
+          navigation.navigate('Contact');
+        }}
+      >
+        Contacte
       </Button>
     </ScrollView>
   );
@@ -46,7 +55,8 @@ const DrawerNavigator = () => {
 
   return (
     <Drawer.Navigator
-      drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
+      // drawerType={dimensions.width >= 768 ? 'permanent' : 'front'}
+      drawerType={'front'}
       edgeWidth={25}
       // drawerContent={() => (
       //   <View

@@ -53,7 +53,8 @@ const MainStackNavigator = ({ scene }) => {
   );
 };
 
-const ContactStackNavigator = () => {
+const ContactStackNavigator = ({ navigation }) => {
+  const theme = useTheme();
   return (
     // <Stack.Navigator screenOptions={ScreenOptions}>
     <Stack.Navigator
@@ -62,7 +63,14 @@ const ContactStackNavigator = () => {
         headerStyle: {
           backgroundColor: theme?.colors.primary,
         },
-        headerRight: () => <DKSwitch />,
+        headerRight: () => <GeneralMenu />,
+        headerLeft: () => (
+          <ToggleButton
+            mode="contained"
+            icon="menu"
+            onPress={() => navigation.toggleDrawer()}
+          />
+        ),
       }}
     >
       <Stack.Screen name="Contact" component={Contact} />
@@ -129,7 +137,7 @@ const ScheduleNavigator = ({ navigation }) => {
       <Stack.Screen
         name="Schedule Viewer"
         component={ScheduleView}
-        // options={({ route }) => ({ title: route.params.routeName })}
+        options={({ route }) => ({ title: route.params.routeName })}
       />
     </Stack.Navigator>
   );
