@@ -69,12 +69,12 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
         },
         [
           extraStyle
-            ? { flexBasis: 200, flexGrow: 0, flexShrink: 0, flex: 0 }
+            ? { flexBasis: 200, flexGrow: 1, flexShrink: 1, flex: 0 }
             : {},
         ],
       ]}
     >
-      {stopName != null && (
+      {/* {stopName != null && (
         <Text
           style={[
             {
@@ -90,7 +90,7 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
         >
           {stopName}
         </Text>
-      )}
+      )} */}
 
       {item.map((hour, hourIndex) => {
         // if (hourIndex < 3)
@@ -340,11 +340,7 @@ class ScheduleView extends React.Component {
           flex: 1,
         }}
       >
-        <View
-          style={{
-            flex: 1,
-          }}
-        >
+        <View>
           <ScrollView
             horizontal
             contentContainerStyle={{
@@ -352,16 +348,6 @@ class ScheduleView extends React.Component {
               alignContent: 'center',
             }}
           >
-            {/* <View
-            id="stopNameRow"
-            style={{
-              flex: 1,
-
-              flexDirection: 'row',
-              // alignItems: 'stretch',
-              justifyContent: 'space-between',
-            }}
-          > */}
             {scheduleData.stops.map((stop, stopIndex) => {
               return (
                 <TouchableOpacity
@@ -390,112 +376,69 @@ class ScheduleView extends React.Component {
                 </TouchableOpacity>
               );
             })}
-            {/* </View> */}
           </ScrollView>
         </View>
-        <View
-          style={{
-            flex: 10,
-            flexGrow: 1,
-            // flexDirection: 'row',
-            // alignContent: 'center',
-            // justifyContent: 'center',
-          }}
-        >
+        <View style={{ flex: 1 }}>
           <ScrollView
+            horizontal
             contentContainerStyle={{
-              flex: 1,
-              flexGrow: 1,
-
-              // flexBasis: 2000,
-              // width: '100%',
-              height: '100%',
-              // flexDirection: 'row',
-              // alignContent: 'center',
-              // alignSelf: 'center',
-
-              // alignItems: 'center',
-
-              // flexWrap: 'nowrap',
+              // height: 0,
+              flexDirection: 'column',
+              // justifyContent: 'center',
             }}
           >
-            <View style={{ flexGrow: 1 }}>
-              <ScrollView
-                horizontal
-                contentContainerStyle={{
-                  flex: 1,
-                  flexGrow: 1,
-                  // width: 0,
-                  // height: 0,
+            <View style={{ flexDirection: 'row' }}>
+              {this.state.selectedColumns.map((id, index) => {
+                return (
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={() => this.selectColumn(id)}
+                    style={[
+                      {
+                        flex: 1,
+                        flexGrow: 1,
+                        flexShrink: 1,
+                        flexBasis: 0,
+                        flexWrap: 'wrap',
+                        padding: 3,
+                        justifyContent: 'center', //Centered horizontally
+                        alignItems: 'center', //Centered vertically
+                      },
+                    ]}
+                    key={id}
+                  >
+                    <Text style={{ textAlign: 'center' }}>
+                      {scheduleData.stops[id]}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
 
-                  // flexBasis: 200,
-                  // width: '100%',
-                  flexDirection: 'row',
-                  // alignContent: 'center',
-                  // alignSelf: 'center',
-                  flexWrap: 'nowrap',
-                }}
-              >
-                {scheduleData.hours.map((hours, hoursIndex) => {
-                  if (this.state.selectedColumns.includes(hoursIndex))
-                    return (
-                      <CustomRow
-                        key={hoursIndex}
-                        index={hoursIndex}
-                        item={hours}
-                        extraStyle={true}
-                        stopName={scheduleData.stops[hoursIndex]}
-                        // selectedColumns={this.state.selectedColumns}
-                        selected={this.state.selectedColumns.includes(
-                          hoursIndex
-                        )}
-                      />
-                    );
-                })}
-                {/* 
             <ScrollView
+              style={{}}
+              showsVerticalScrollIndicator={false}
               contentContainerStyle={{
-                // flexGrow: 1,
                 height: 0,
                 flexDirection: 'row',
-
-                alignContent: 'center',
+                // justifyContent: 'center',
               }}
             >
-              <Surface
-                style={[
-                  {
-                    flexGrow: 1,
-                    flexDirection: 'row',
-
-                    // justifyContent: 'center',
-                    alignContent: 'center',
-                  },
-                  // Dimensions.get('window').width <
-                  // styles.tableElement.width * this.state.selectedColumns.length
-                  //   ? { backgroundColor: 'green' }
-                  //   : { width: Dimensions.get('window').width },
-                ]}
-              >
-                {scheduleData.hours.map((hours, hoursIndex) => {
-                  if (this.state.selectedColumns.includes(hoursIndex))
-                    return (
-                      <CustomRow
-                        key={hoursIndex}
-                        index={hoursIndex}
-                        item={hours}
-                        extraStyle={true}
-                        // selectedColumns={this.state.selectedColumns}
-                        selected={this.state.selectedColumns.includes(
-                          hoursIndex
-                        )}
-                      />
-                    );
-                })}
-              </Surface>
-            </ScrollView>*/}
-              </ScrollView>
-            </View>
+              {scheduleData.hours.map((hours, hoursIndex) => {
+                return (
+                  this.state.selectedColumns.includes(hoursIndex) && (
+                    <CustomRow
+                      key={hoursIndex}
+                      index={hoursIndex}
+                      item={hours}
+                      extraStyle={true}
+                      // selectedColumns={this.state.selectedColumns}
+                      selected={this.state.selectedColumns.includes(hoursIndex)}
+                    />
+                  )
+                );
+              })}
+            </ScrollView>
           </ScrollView>
         </View>
       </View>
