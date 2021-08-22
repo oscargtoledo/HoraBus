@@ -52,10 +52,11 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
           textAlign: 'center',
           shadowOpacity: 0,
           // flexGrow: 1,
+          // flexShrink: 1,
           // alignContent: 'center',
           // alignSelf: 'center',
           //backgroundColor: theme?.colors.primary,
-          backgroundColor: 'yellow',
+          // backgroundColor: 'yellow',
           // width: 30,
           flexDirection: 'column',
           // justifyContent: 'center',  PREVIOUS
@@ -78,7 +79,7 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
           style={[
             {
               backgroundColor: theme?.colors.surface,
-              flex: 1,
+              // flex: 1,
               textAlignVertical: 'center',
               textAlign: 'center',
               height: 40,
@@ -406,7 +407,7 @@ class ScheduleView extends React.Component {
               flex: 1,
               flexGrow: 1,
 
-              flexBasis: 2000,
+              // flexBasis: 2000,
               // width: '100%',
               height: '100%',
               // flexDirection: 'row',
@@ -519,7 +520,6 @@ class ScheduleView extends React.Component {
         }}
       >
         {isFetching ? (
-          // <Text>loading</Text>
           <ActivityIndicator size="large" />
         ) : (
           <Surface style={{ flex: 1, justifyContent: 'center' }}>

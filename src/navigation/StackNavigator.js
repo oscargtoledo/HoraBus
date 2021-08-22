@@ -63,6 +63,7 @@ const ContactStackNavigator = ({ navigation }) => {
         headerStyle: {
           backgroundColor: theme?.colors.primary,
         },
+        title: 'Contacte',
         headerRight: () => <GeneralMenu />,
         headerLeft: () => (
           <ToggleButton
@@ -94,6 +95,7 @@ const TwitterNavigator = ({ navigation }) => {
         name="View Tweets"
         component={TwitterFeed}
         options={{
+          title: 'Twitter BusGarraf',
           headerRight: () => <DKSwitch />,
           headerLeft: () => (
             <ToggleButton
@@ -124,6 +126,7 @@ const ScheduleNavigator = ({ navigation }) => {
         name="Select Schedule"
         component={ScheduleSelector}
         options={{
+          title: 'HoraBus',
           headerRight: () => <DKSwitch />,
           headerLeft: () => (
             <ToggleButton

@@ -15,6 +15,7 @@ import {
   useTheme,
   Surface,
   ActivityIndicator,
+  Divider,
 } from 'react-native-paper';
 import APIClient from '../utils/APIClient';
 
@@ -23,25 +24,33 @@ const ScheduleSelector = ({ navigation }) => {
   const [schedules, setSchedules] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const retrieveData = async () => {
-    try {
-      const { data } = await APIClient.get('/schedules/names');
-      setSchedules(data);
-      console.log(data);
-    } catch (ex) {
-      console.log(ex);
-      console.log({ ...ex });
-    }
-  };
+  // const retrieveData = async () => {
+  //   try {
+  //     const { data } = await APIClient.get('/schedules/names');
+  //     setSchedules(data);
+  //     console.log(data);
+  //   } catch (ex) {
+  //     console.log(ex);
+  //     console.log({ ...ex });
+  //   }
+  // };
 
   const onRefresh = () => {
+    setRefreshing(true);
     retrieveData();
     setRefreshing(false);
   };
 
   useEffect(() => {
+    const retrieveData = async () => {
+      const result = await APIClient.get('/schedules/names');
+      console.log(result.data);
+      setSchedules(result.data);
+      setRefreshing(false);
+    };
     retrieveData();
-  }, []);
+    // retrieveData();
+  }, [refreshing]);
 
   // const generateRouteButtons = () => {
   //   const routeButtons = [];
@@ -67,34 +76,43 @@ const ScheduleSelector = ({ navigation }) => {
       >
         <Button
           mode="contained"
-          style={{ margin: 2 }}
-          onPress={() => onRefresh()}
+          style={{ margin: 5 }}
+          onPress={() => setRefreshing(true)}
         >
-          Refresh
+          Recarregar Horaris
         </Button>
-        {refreshing ? (
-          <ActivityIndicator size="large" />
-        ) : (
-          schedules.map((item, index) => {
-            return (
-              <Button /*style={{ backgroundColor: theme?.colors.accent }}*/
-                key={item._id}
-                mode="contained"
-                onPress={() =>
-                  navigation.navigate('Schedule Viewer', {
-                    routeId: item._id,
-                    routeName: item.routeName,
-                  })
-                }
-                style={{ margin: 2 }}
-              >
-                {item.routeName}
-              </Button>
-            );
-          })
-        )}
+
+        <ScheduleList
+          isLoading={refreshing}
+          items={schedules}
+          navigation={navigation}
+        />
       </ScrollView>
     </Surface>
+  );
+};
+
+const ScheduleList = ({ items, isLoading, navigation }) => {
+  return isLoading ? (
+    <ActivityIndicator size="large" />
+  ) : (
+    items.map((item, index) => {
+      return (
+        <Button /*style={{ backgroundColor: theme?.colors.accent }}*/
+          key={item._id}
+          mode="contained"
+          onPress={() =>
+            navigation.navigate('Schedule Viewer', {
+              routeId: item._id,
+              routeName: item.routeName,
+            })
+          }
+          style={{ margin: 2 }}
+        >
+          {item.routeName}
+        </Button>
+      );
+    })
   );
 };
 
