@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/HoraBus/static/js/app.0dd5b980.chunk.js",
-    "app.js.map": "/HoraBus/static/js/app.0dd5b980.chunk.js.map",
+    "app.js": "/HoraBus/static/js/app.9a516d9a.chunk.js",
+    "app.js.map": "/HoraBus/static/js/app.9a516d9a.chunk.js.map",
     "runtime~app.js": "/HoraBus/static/js/runtime~app.9f1bf0aa.js",
     "runtime~app.js.map": "/HoraBus/static/js/runtime~app.9f1bf0aa.js.map",
     "static/js/2.5bc1d47c.chunk.js": "/HoraBus/static/js/2.5bc1d47c.chunk.js",
@@ -18,6 +18,6 @@
   "entrypoints": [
     "static/js/runtime~app.9f1bf0aa.js",
     "static/js/2.5bc1d47c.chunk.js",
-    "static/js/app.0dd5b980.chunk.js"
+    "static/js/app.9a516d9a.chunk.js"
   ]
 }
