@@ -1,6 +1,5 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "homepage": "https://oscargtoledo.github.io/HoraBus",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -8,7 +7,9 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "deploy": "gh-pages -d web-build",
-    "predeploy": "expo build:web"
+    "predeploy": "expo build:web",
+    "netlify": "netlify deploy",
+    "netprod": "netlify deploy --prod"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.10",
@@ -19,14 +20,16 @@
     "@react-navigation/stack": "^5.9.3",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
-    "dotenv": "^8.2.0",
+    "dotenv": "^10.0.0",
     "expo": "^42.0.0",
     "expo-cli": "^4.0.8",
     "expo-constants": "~11.0.1",
     "expo-status-bar": "~1.0.4",
+    "netlify-cli": "^6.7.7",
     "react": "16.13.1",
     "react-dom": "^17.0.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-dotenv": "^3.2.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-paper": "^4.2.0",
     "react-native-reanimated": "~2.2.0",
@@ -36,7 +39,20 @@
     "react-native-web": "^0.17.1",
     "react-native-web-webview": "^1.0.2",
     "react-native-webview": "11.6.2",
-    "react-promise-tracker": "^2.1.0"
+    "react-promise-tracker": "^2.1.0",
+    "workbox-background-sync": "^6.1.5",
+    "workbox-broadcast-update": "^6.1.5",
+    "workbox-cacheable-response": "^6.1.5",
+    "workbox-core": "^6.1.5",
+    "workbox-expiration": "^6.1.5",
+    "workbox-google-analytics": "^6.1.5",
+    "workbox-navigation-preload": "^6.1.5",
+    "workbox-precaching": "^6.1.5",
+    "workbox-range-requests": "^6.1.5",
+    "workbox-routing": "^6.1.5",
+    "workbox-strategies": "^6.1.5",
+    "workbox-streams": "^6.1.5",
+    "workbox-webpack-plugin": "^6.1.5"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

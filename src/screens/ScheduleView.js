@@ -5,15 +5,15 @@ import {
   Dimensions,
   View,
   StyleSheet,
-  Button,
-  VirtualizedList,
-  FlatList,
-  Image,
+  // Button,
+  // VirtualizedList,
+  // FlatList,
+  // Image,
   Animated,
   ScrollView,
   TouchableOpacity,
-  TouchableHighlight,
-  BackHandler,
+  // TouchableHighlight,
+  // BackHandler,
 } from 'react-native';
 import {
   Surface,
@@ -23,7 +23,7 @@ import {
   withTheme,
   ActivityIndicator,
 } from 'react-native-paper';
-import { back } from 'react-native/Libraries/Animated/src/Easing';
+// import { back } from 'react-native/Libraries/Animated/src/Easing';
 import APIClient from '../utils/APIClient';
 
 // import {
@@ -37,7 +37,7 @@ import APIClient from '../utils/APIClient';
 // } from 'react-native-table-component';
 
 import { PinchGestureHandler, State } from 'react-native-gesture-handler';
-var classNames = require('classnames');
+// var classNames = require('classnames');
 import usePreferences from '../preferences/usePreferences';
 import PreferencesContext from '../preferences/context';
 
@@ -150,7 +150,7 @@ class ScheduleView extends React.Component {
     try {
       const { routeId } = this.props.route.params;
       const { data } = await APIClient.get('/schedules/' + routeId);
-      // this.setState({ schedule: data[0] })
+      this.setState({ schedule: data[0] });
       return data;
     } catch (ex) {
       console.log(ex);
@@ -159,20 +159,8 @@ class ScheduleView extends React.Component {
   componentDidUpdate() {
     console.log(this.state.selectedColumns);
   }
-  // selectColumn(index) {
-  //   if (index == this.state.selectedColumn) {
-  //     this.setState({ selectedColumn: null });
-  //   } else {
-  //     this.setState({ selectedColumn: index });
-  //   }
-  //   console.log(index);
-  // }
+
   selectColumn(index) {
-    // if (index == this.state.selectedColumn) {
-    //   this.setState({ selectedColumn: null });
-    // } else {
-    //   this.setState({ selectedColumn: index });
-    // }
     console.log('Selected ' + index);
     var ind = this.state.selectedColumns.indexOf(index);
     console.log('index = ' + ind);
@@ -211,36 +199,6 @@ class ScheduleView extends React.Component {
       }).start();
     }
   };
-
-  // render() {
-  //   // this.retrieveSchedule()
-  //   const scheduleData = this.state.schedule;
-  //   const isFetching = scheduleData === null;
-  //   const { theme } = this.props;
-  //   return (
-  //     <Surface style={styles.center}>
-  //       {isFetching ? (
-  //         // <Text>loading</Text>
-  //         <ActivityIndicator size="large" />
-  //       ) : (
-  //         <PinchGestureHandler
-  //           onGestureEvent={() => {
-  //             this.onZoomEvent;
-  //             console.log(this.scale);
-  //           }}
-  //           onHandlerStateChange={this.onZoomStateChange}
-  //         >
-  //           <View>
-  //             <Animated.Image
-  //               style={{ transform: [{ scale: this.scale }] }}
-  //               source={require('../../assets/icon.png')}
-  //             ></Animated.Image>
-  //           </View>
-  //         </PinchGestureHandler>
-  //       )}
-  //     </Surface>
-  //   );
-  // }
 
   regularSchedule() {
     const { theme } = this.props;

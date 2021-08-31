@@ -1,5 +1,6 @@
 // ./App.js
-// require('dotenv').config();
+require('dotenv').config();
+require('fs');
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
@@ -47,17 +48,19 @@ const CombinedDarkTheme = {
 
 import React from 'react';
 
-import { MainStackNavigator } from './src/navigation/StackNavigator';
-import BottomTabNavigator from './src/navigation/TabNavigator';
+// import { MainStackNavigator } from './src/navigation/StackNavigator';
+// import BottomTabNavigator from './src/navigation/TabNavigator';
+
+// import { Text } from 'react-native-paper';
+// import { createStackNavigator } from '@react-navigation/stack';
+// import Home from './src/screens/Home';
+// import About from './src/screens/About';
+// import SafeAreaView from 'react-native-safe-area-view';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 import PreferencesContext from './src/preferences/context';
-
-import { Text } from 'react-native-paper';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/screens/Home';
-import About from './src/screens/About';
-import SafeAreaView from 'react-native-safe-area-view';
 import { StatusBar, BackHandler } from 'react-native';
+
+import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -93,4 +96,17 @@ function App() {
     </PreferencesContext.Provider>
   );
 }
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  showInstallPromotion();
+  // Optionally, send analytics event that PWA install promo was shown.
+  console.log(`'beforeinstallprompt' event was fired.`);
+});
+serviceWorkerRegistration.register();
+
 export default App;
