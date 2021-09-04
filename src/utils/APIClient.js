@@ -4,7 +4,7 @@ import env from './env';
 
 const instance = axios.create({
   baseURL: env.API_URL,
-  baseURL: 'https://buschedule-api.herokuapp.com',
+  // baseURL: 'https://buschedule-api.herokuapp.com',
   timeout: 4000,
 });
 

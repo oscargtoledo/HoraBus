@@ -11,6 +11,7 @@ const releaseChannel = Constants.manifest.releaseChannel;
 
 if (Platform.OS == 'web') {
   API_URL = 'https://buschedule-api.herokuapp.com';
+  // API_URL = 'http://192.168.0.14:8080';
 } else {
   if (releaseChannel === undefined) {
     API_URL = envAPI_URL;

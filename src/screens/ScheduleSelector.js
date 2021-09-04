@@ -5,10 +5,11 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
-  Text,
   RefreshControl,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
+
 // import {  } from "react-native-gesture-handler";
 import {
   Button,
@@ -16,7 +17,10 @@ import {
   Surface,
   ActivityIndicator,
   Divider,
+  Text,
+  TouchableRipple,
 } from 'react-native-paper';
+import { Icon } from 'react-native-elements';
 import APIClient from '../utils/APIClient';
 
 const ScheduleSelector = ({ navigation }) => {
@@ -96,23 +100,125 @@ const ScheduleList = ({ items, isLoading, navigation }) => {
   return isLoading ? (
     <ActivityIndicator size="large" />
   ) : (
-    items.map((item, index) => {
-      return (
-        <Button /*style={{ backgroundColor: theme?.colors.accent }}*/
-          key={item._id}
-          mode="contained"
-          onPress={() =>
-            navigation.navigate('Schedule Viewer', {
-              routeId: item._id,
-              routeName: item.routeName,
-            })
-          }
-          style={{ margin: 2 }}
+    <View style={{ flex: 1 }}>
+      <ScrollView
+        contentContainerStyle={{
+          height: 0,
+          marginHorizontal: 20,
+          backgroundColor: 'green',
+        }}
+      >
+        {items.map((item, index) => {
+          return (
+            // <Button
+            //   key={item._id}
+            //   mode="contained"
+            //   onPress={() =>
+            //     navigation.navigate('Horari', {
+            //       routeId: item._id,
+            //     })
+            //   }
+            //   style={{ margin: 2 }}
+            // >
+            //   {item.routeName}
+            // </Button>
+            <ScheduleButton
+              key={item._id}
+              scheduleData={item}
+              navigation={navigation}
+            />
+          );
+        })}
+      </ScrollView>
+    </View>
+  );
+};
+
+const ScheduleButton = ({ scheduleData, navigation }) => {
+  const theme = useTheme();
+  return (
+    <Surface
+      style={{
+        borderRadius: 10,
+        flex: 1,
+        flexDirection: 'row',
+        // flexShrink: 1,
+        // flexGrow: 1,
+        // flexBasis: 100,
+        minHeight: 100,
+        margin: 3,
+        paddingLeft: 10,
+
+        backgroundColor: theme?.colors.primary,
+      }}
+    >
+      <View
+        style={{
+          flex: 10,
+          flexShrink: 1,
+          padding: 5,
+          justifyContent: 'center',
+        }}
+      >
+        <Text
+          style={{
+            // flex: 1,
+            textAlign: 'left',
+            textAlignVertical: 'center',
+          }}
         >
-          {item.routeName}
-        </Button>
-      );
-    })
+          {scheduleData.routeName}
+        </Text>
+      </View>
+      <View
+        style={{
+          flex: 2,
+          flexGrow: 1,
+          padding: 2,
+          justifyContent: 'center',
+        }}
+      >
+        {/* <Button
+          mode="contained"
+          contentStyle={{ height: 100 }}
+          labelStyle={{ textAlign: 'center', textAlignVertical: 'center' }}
+          onPress={() => {}}
+          icon="arrow-right-bold"
+          
+        /> */}
+
+        <TouchableRipple
+          // rippleColor="red"
+          style={{
+            flex: 1,
+            aspectRatio: 1,
+
+            // height: 100,
+            // width: 100,
+            borderWidth: 1,
+            borderColor: 'rgba(0,0,0,0.2)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: theme?.colors.primary,
+            borderRadius: 50,
+          }}
+          onPress={() => {
+            navigation.navigate('Horari', {
+              routeId: scheduleData._id,
+            });
+          }}
+        >
+          {/* <TouchableRipple rippleColor="red"> */}
+          <Icon
+            name={'chevron-right'}
+            size={30}
+            color={theme?.colors.text}
+            disabledStyle={{ backgroundColor: 'green' }}
+          />
+        </TouchableRipple>
+        {/* </TouchableOpacity> */}
+      </View>
+    </Surface>
   );
 };
 

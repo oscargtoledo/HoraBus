@@ -5,6 +5,7 @@ import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
+  getStateFromPath,
 } from '@react-navigation/native';
 import {
   DarkTheme as PaperDarkTheme,
@@ -59,8 +60,58 @@ import React from 'react';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 import PreferencesContext from './src/preferences/context';
 import { StatusBar, BackHandler } from 'react-native';
-
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from '@react-navigation/stack';
+import GeneralMenu from './src/utils/GeneralMenu';
 import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
+
+const linking = {
+  prefixes: ['https://horabus.netlify.app', 'horabus://'],
+  config: {
+    screens: {
+      NotFound: '*',
+      Twitter: {
+        screens: {
+          Tweets: 'Twitter',
+        },
+      },
+      Contact: '',
+      Horaris: {
+        path: 'Horaris',
+        screens: {
+          Tots: '',
+          Horari: {
+            // initialRouteName: 'Horaris',
+            path: '/:routeId',
+          },
+        },
+      },
+    },
+  },
+  // getStateFromPath(path, config) {
+  //   const defaultState = getStateFromPath(path, config);
+  //   // add first page to routes, then you will have a back btn
+  //   const { routes } = defaultState;
+  //   console.log(routes);
+  //   const firstRouteName = 'Horaris';
+  //   if (routes && routes.length === 1 && routes[0].name !== firstRouteName) {
+  //     defaultState.routes.unshift({ name: firstRouteName });
+  //   }
+  //   return defaultState;
+  // },
+};
+
+import {
+  ContactStackNavigator,
+  ScheduleNavigator,
+  TwitterNavigator,
+} from './src/navigation/StackNavigator';
+import Contact from './src/screens/Contacts';
+import TabNavigator from './src/navigation/TabNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
@@ -69,31 +120,25 @@ function App() {
   BackHandler.addEventListener('hardwareBackPress', function () {
     return true;
   });
+  const Tab = createBottomTabNavigator();
+  const Stack = createStackNavigator();
   return (
-    <PreferencesContext.Provider
-      value={{
-        isThemeDark,
-        setIsThemeDark,
-        isHidingUnselected,
-        setHideUnselected,
-      }}
-    >
-      <PaperProvider theme={theme}>
-        <NavigationContainer theme={theme}>
-          {/* <MainStackNavigator /> */}
-          {/* <BottomTabNavigator /> */}
-
-          {/* <SafeAreaView backgroundColor={theme?.colors.primary}> */}
-          {/* <Text>ey</Text> */}
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={theme?.colors.primaryDark}
-          ></StatusBar>
-          {/* </SafeAreaView> */}
-          <DrawerNavigator />
-        </NavigationContainer>
-      </PaperProvider>
-    </PreferencesContext.Provider>
+    <SafeAreaProvider>
+      <PreferencesContext.Provider
+        value={{
+          isThemeDark,
+          setIsThemeDark,
+          isHidingUnselected,
+          setHideUnselected,
+        }}
+      >
+        <PaperProvider theme={theme}>
+          <NavigationContainer theme={theme} linking={linking}>
+            <TabNavigator />
+          </NavigationContainer>
+        </PaperProvider>
+      </PreferencesContext.Provider>
+    </SafeAreaProvider>
   );
 }
 let deferredPrompt;

@@ -24,11 +24,12 @@ import { Text, View } from 'react-native';
 // import PreferencesContext from '../PreferencesContext';
 import { DarkModeSwitch as DKSwitch } from '../utils/DarkModeSwitch';
 import GeneralMenu from '../utils/GeneralMenu';
-const Stack = createStackNavigator();
+const MainStack = createStackNavigator();
+const ContactStack = createStackNavigator();
+const TwitterStack = createStackNavigator();
 
 const MainStackNavigator = ({ scene }) => {
   const theme = useTheme();
-  // const { toggleTheme, isThemeDark } = React.useContext(PreferencesContext);
 
   const ScreenOptions = {
     // ...TransitionPresets.SlideFromRightIOS, // This is where the transition happens
@@ -38,18 +39,31 @@ const MainStackNavigator = ({ scene }) => {
   };
 
   return (
-    <Stack.Navigator
+    <MainStack.Navigator
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
           backgroundColor: theme?.colors.primary,
         },
+        // headerShown: false,
+
         headerRight: () => <GeneralMenu />,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="About" component={About} />
-    </Stack.Navigator>
+      <MainStack.Screen
+        name="Tots"
+        component={ScheduleSelector}
+        options={{
+          title: 'HoraBus',
+        }}
+      />
+      <MainStack.Screen
+        name="Horari"
+        component={ScheduleView}
+        // options={({ route }) => ({ title: route.params.routeName })}
+        options={{ title: 'Horari' }}
+      />
+    </MainStack.Navigator>
   );
 };
 
@@ -57,56 +71,59 @@ const ContactStackNavigator = ({ navigation }) => {
   const theme = useTheme();
   return (
     // <Stack.Navigator screenOptions={ScreenOptions}>
-    <Stack.Navigator
+    <ContactStack.Navigator
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
           backgroundColor: theme?.colors.primary,
         },
-        title: 'Contacte',
-        headerRight: () => <GeneralMenu />,
-        headerLeft: () => (
-          <ToggleButton
-            mode="contained"
-            icon="menu"
-            onPress={() => navigation.toggleDrawer()}
-          />
-        ),
+        title: 'Contactar',
+        headerTitleStyle: { alignSelf: 'center' },
+        // headerRight: () => <GeneralMenu />,
+        // headerLeft: () => (
+        //   <ToggleButton
+        //     mode="contained"
+        //     icon="menu"
+        //     onPress={() => navigation.toggleDrawer()}
+        //   />
+        // ),
       }}
     >
-      <Stack.Screen name="Contact" component={Contact} />
-    </Stack.Navigator>
+      <ContactStack.Screen name="Contactar" component={Contact} />
+    </ContactStack.Navigator>
   );
 };
 
 const TwitterNavigator = ({ navigation }) => {
   const theme = useTheme();
   return (
-    <Stack.Navigator
+    <TwitterStack.Navigator
       screenOptions={{
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
           backgroundColor: theme?.colors.primary,
         },
+        headerTitleStyle: { alignSelf: 'center' },
         headerRight: () => <GeneralMenu />,
       }}
     >
-      <Stack.Screen
-        name="View Tweets"
+      <TwitterStack.Screen
+        name="Tweets"
         component={TwitterFeed}
         options={{
           title: 'Twitter BusGarraf',
-          headerRight: () => <DKSwitch />,
-          headerLeft: () => (
-            <ToggleButton
-              mode="contained"
-              icon="menu"
-              onPress={() => navigation.toggleDrawer()}
-            />
-          ),
+          headerTitleStyle: { alignSelf: 'center' },
+          // headerRight: () => <DKSwitch />,
+          // headerLeft: () => (
+          //   <ToggleButton
+          //     mode="contained"
+          //     icon="menu"
+          //     onPress={() => navigation.toggleDrawer()}
+          //   />
+          // ),
         }}
       />
-    </Stack.Navigator>
+    </TwitterStack.Navigator>
   );
 };
 
@@ -123,7 +140,7 @@ const ScheduleNavigator = ({ navigation }) => {
       }}
     >
       <Stack.Screen
-        name="Select Schedule"
+        name="Horaris"
         component={ScheduleSelector}
         options={{
           title: 'HoraBus',

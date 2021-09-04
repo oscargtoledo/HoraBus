@@ -135,15 +135,15 @@ class ScheduleView extends React.Component {
     super(props);
     this.state = {
       schedule: null,
+      fetchError: false,
       selectedColumn: null,
       scheduleScale: 1,
       selectedColumns: [],
     };
   }
   componentDidMount() {
-    // console.log("mounted")
     this.retrieveSchedule().then(externalData => {
-      this.setState({ schedule: externalData[0] });
+      this.setState({ schedule: externalData });
     });
   }
   async retrieveSchedule() {
@@ -151,13 +151,14 @@ class ScheduleView extends React.Component {
       const { routeId } = this.props.route.params;
       const { data } = await APIClient.get('/schedules/' + routeId);
       this.setState({ schedule: data[0] });
-      return data;
+      this.props.navigation.setOptions({ title: data[0].routeName });
+      return data[0];
     } catch (ex) {
-      console.log(ex);
+      this.setState({ fetchError: true });
     }
   }
   componentDidUpdate() {
-    console.log(this.state.selectedColumns);
+    // console.log(this.state.selectedColumns);
   }
 
   selectColumn(index) {
@@ -405,7 +406,6 @@ class ScheduleView extends React.Component {
 
   render() {
     // this.retrieveSchedule()
-
     const isFetching = this.state.schedule === null;
     const { theme } = this.props;
     let screenHeight = Dimensions.get('window').height;
@@ -422,6 +422,8 @@ class ScheduleView extends React.Component {
       >
         {isFetching ? (
           <ActivityIndicator size="large" />
+        ) : this.state.fetchError ? (
+          <Text>Aquest horari no existeix</Text>
         ) : (
           <Surface style={{ flex: 1, justifyContent: 'center' }}>
             <Surface
@@ -436,7 +438,7 @@ class ScheduleView extends React.Component {
                   fontSize: 20,
                 }}
               >
-                {this.state.schedule.routeName}
+                {this.state.schedule.title}
               </Text>
             </Surface>
 
