@@ -29,6 +29,7 @@ const CombinedDefaultTheme = {
     surface: '#01457A',
     card: '#224C6B',
     text: '#ffffff',
+    onSurface: '#01579b',
   },
 };
 const CombinedDarkTheme = {
@@ -45,6 +46,7 @@ const CombinedDarkTheme = {
     columnAccent: '#6b6b6b',
     primary: '#424242',
     primaryLight: '#6b6b6b',
+    onSurface: '#212121',
   },
 };
 
