@@ -24,7 +24,7 @@ const CombinedDefaultTheme = {
     primaryDark: '#002f6c',
     primaryLight: '#4f83cc',
     background: '#01579b',
-    accent: '#3c67a3',
+    accent: '#0091ea',
     columnAccent: '#5390E0',
     surface: '#01457A',
     card: '#224C6B',
@@ -35,11 +35,12 @@ const CombinedDarkTheme = {
   ...PaperDarkTheme,
   ...NavigationDarkTheme,
   dark: true,
+  mode: 'adaptative',
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
     background: '#121212',
-    accent: '#424242',
+    accent: '#6d6d6d',
     primary: '#212121',
     columnAccent: '#6b6b6b',
     primary: '#424242',
@@ -47,7 +48,7 @@ const CombinedDarkTheme = {
   },
 };
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // import { MainStackNavigator } from './src/navigation/StackNavigator';
 // import BottomTabNavigator from './src/navigation/TabNavigator';
@@ -113,16 +114,32 @@ import {
 import Contact from './src/screens/Contacts';
 import TabNavigator from './src/navigation/TabNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   const [isHidingUnselected, setHideUnselected] = React.useState(false);
+
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
   BackHandler.addEventListener('hardwareBackPress', function () {
     return true;
   });
   const Tab = createBottomTabNavigator();
   const Stack = createStackNavigator();
+
+  useEffect(() => {
+    const getDarkTheme = async () => {
+      try {
+        const value = await AsyncStorage.getItem('darkTheme');
+        console.log(JSON.parse(value));
+        return JSON.parse(value);
+      } catch (e) {
+        console.log('Error reading dark theme value');
+      }
+    };
+    getDarkTheme().then(value => {
+      if (value != null) setIsThemeDark(value);
+    });
+  }, []);
   return (
     <SafeAreaProvider>
       <PreferencesContext.Provider

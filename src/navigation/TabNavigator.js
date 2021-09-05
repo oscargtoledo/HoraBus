@@ -36,7 +36,18 @@ const TabNavigator = () => {
       // activeColor="#f0edf6"
       // inactiveColor="#3e2465"
       initialRouteName="Horaris"
-      barStyle={{ backgroundColor: theme?.colors.primary }}
+      barStyle={{
+        backgroundColor: theme?.colors.primary,
+
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 12,
+        // },
+        shadowOpacity: 1,
+        shadowRadius: 13.0,
+        borderTopWidth: 0,
+        elevation: 8,
+      }}
       shifting={true}
       // backBehavior={'history'}
       initialRouteName={'Horaris'}

@@ -50,6 +50,9 @@ const MainStackNavigator = ({ scene }) => {
           // backgroundColor: colors.background,
           borderBottomWidth: 0,
         },
+        headerTitleStyle: { alignSelf: 'center' },
+
+        elevation: 0,
         // presentation: 'card',
         // animationEnabled: true,
         // headerShown: false,
@@ -60,7 +63,6 @@ const MainStackNavigator = ({ scene }) => {
         component={ScheduleSelector}
         options={{
           title: 'HoraBus',
-          headerRight: () => <DarkModeSwitch />,
         }}
       />
       <MainStack.Screen

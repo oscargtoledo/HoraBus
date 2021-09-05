@@ -183,31 +183,6 @@ const ScheduleButton = ({ scheduleData, navigation }) => {
           alignContent: 'center',
         }}
       >
-        {/* <TouchableRipple
-          style={{
-            flex: 1,
-            // aspectRatio: 1,
-
-            // borderWidth: 1,
-            // borderColor: 'rgba(0,0,0,0.2)',
-            // alignItems: 'center',
-            // justifyContent: 'center',
-            backgroundColor: theme?.colors.primary,
-            // borderRadius: 50,
-          }}
-          onPress={() => {
-            navigation.navigate('Horari', {
-              routeId: scheduleData._id,
-            });
-          }}
-        >
-          <Icon
-            name={'chevron-right'}
-            size={30}
-            color={theme?.colors.text}
-            disabledStyle={{ backgroundColor: 'green' }}
-          />
-        </TouchableRipple> */}
         <IconButton
           icon="chevron-right"
           theme={theme}
@@ -215,7 +190,16 @@ const ScheduleButton = ({ scheduleData, navigation }) => {
           size={40}
           style={{
             alignSelf: 'center',
-            backgroundColor: theme?.colors.primaryLight,
+            backgroundColor: theme?.colors.accent,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.32,
+            shadowRadius: 5.46,
+
+            elevation: 9,
           }}
           onPress={() => {
             navigation.navigate('Horari', {
