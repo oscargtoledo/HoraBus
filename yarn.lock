@@ -13497,6 +13497,11 @@ react-native-vector-icons@^8.1.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
+react-native-web-refresh-control@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-web-refresh-control/-/react-native-web-refresh-control-1.1.0.tgz#1db8fa744e88a8f6a171166d6743ea3ef1ec0d82"
+  integrity sha512-cOO5WKM7gYXPv9yBc8XXDoRSj/a7GEt0dJ0sOlpwbZyfAiLXA5pS+4XEh10cHG3J+S6yth4Oe5srsebsQTpe+A==
+
 react-native-web-webview@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-web-webview/-/react-native-web-webview-1.0.2.tgz#c215efa70c17589f2c8d640b1f1dc669b18c6e02"
@@ -14039,6 +14044,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rn-placeholder@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/rn-placeholder/-/rn-placeholder-3.0.3.tgz#98f635b263ee003af2a984eed32d86ade308df35"
+  integrity sha512-EmVeLT8zDcTPilQZ2OHO/IiYUy2gApKGgbshDZBX0C4qxsn0cFATwgwOwyz8O7Vwg1Hul97Ci95hu7d6Js6XMQ==
 
 rollup-plugin-inject@^3.0.0:
   version "3.0.2"

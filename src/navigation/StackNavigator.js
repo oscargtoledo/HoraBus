@@ -22,7 +22,10 @@ import {
 } from 'react-native-paper';
 import { Text, View } from 'react-native';
 // import PreferencesContext from '../PreferencesContext';
-import { DarkModeSwitch as DKSwitch } from '../utils/DarkModeSwitch';
+import {
+  DarkModeSwitch,
+  DarkModeSwitch as DKSwitch,
+} from '../utils/DarkModeSwitch';
 import GeneralMenu from '../utils/GeneralMenu';
 const MainStack = createStackNavigator();
 const ContactStack = createStackNavigator();
@@ -44,10 +47,12 @@ const MainStackNavigator = ({ scene }) => {
         ...TransitionPresets.SlideFromRightIOS,
         headerStyle: {
           backgroundColor: theme?.colors.primary,
+          // backgroundColor: colors.background,
+          borderBottomWidth: 0,
         },
+        // presentation: 'card',
+        // animationEnabled: true,
         // headerShown: false,
-
-        headerRight: () => <GeneralMenu />,
       }}
     >
       <MainStack.Screen
@@ -55,13 +60,14 @@ const MainStackNavigator = ({ scene }) => {
         component={ScheduleSelector}
         options={{
           title: 'HoraBus',
+          headerRight: () => <DarkModeSwitch />,
         }}
       />
       <MainStack.Screen
         name="Horari"
         component={ScheduleView}
         // options={({ route }) => ({ title: route.params.routeName })}
-        options={{ title: 'Horari' }}
+        options={{ title: 'Horari', headerRight: () => <GeneralMenu /> }}
       />
     </MainStack.Navigator>
   );

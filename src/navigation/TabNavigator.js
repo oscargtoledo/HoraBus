@@ -37,7 +37,9 @@ const TabNavigator = () => {
       // inactiveColor="#3e2465"
       initialRouteName="Horaris"
       barStyle={{ backgroundColor: theme?.colors.primary }}
-
+      shifting={true}
+      // backBehavior={'history'}
+      initialRouteName={'Horaris'}
       // theme={theme}
     >
       <Tab.Screen

@@ -143,20 +143,32 @@ class ScheduleView extends React.Component {
   }
   componentDidMount() {
     this.retrieveSchedule().then(externalData => {
-      this.setState({ schedule: externalData });
+      const data = externalData;
+      setTimeout(
+        data => {
+          this.setState({ schedule: data });
+        },
+        200,
+        data
+      );
     });
+    // .then(externalData => {
+    //   this.setState({ schedule: externalData });
+    // });
+    // this._getAndRenderSchedule();
   }
   async retrieveSchedule() {
     try {
       const { routeId } = this.props.route.params;
       const { data } = await APIClient.get('/schedules/' + routeId);
-      this.setState({ schedule: data[0] });
+      // this.setState({ schedule: data[0] });
       this.props.navigation.setOptions({ title: data[0].routeName });
       return data[0];
     } catch (ex) {
       this.setState({ fetchError: true });
     }
   }
+
   componentDidUpdate() {
     // console.log(this.state.selectedColumns);
   }
@@ -407,6 +419,7 @@ class ScheduleView extends React.Component {
   render() {
     // this.retrieveSchedule()
     const isFetching = this.state.schedule === null;
+    // const isFetching = false;
     const { theme } = this.props;
     let screenHeight = Dimensions.get('window').height;
     return (

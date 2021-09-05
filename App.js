@@ -74,8 +74,9 @@ const linking = {
     screens: {
       NotFound: '*',
       Twitter: {
+        path: 'Twitter',
         screens: {
-          Tweets: 'Twitter',
+          Tweets: '',
         },
       },
       Contact: '',
