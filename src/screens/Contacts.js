@@ -13,7 +13,6 @@ import {
   Text,
   Snackbar,
 } from 'react-native-paper';
-import {} from 'react-native-web';
 const Contact = () => {
   const theme = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -12,21 +12,18 @@ function TwitterFeed(props) {
     '<a class="twitter-timeline"' +
     (dark ? 'data-theme="dark"' : '') +
     'href="https://twitter.com/BusGarraf?ref_src=twsrc%5Etfw">Carregant Twitts...</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> ';
-  console.log(dark);
+
   return (
     <Surface style={styles.container}>
-      <WebView
-        containerStyle={{ flex: 1, flexBase: 10, flexShrink: 1 }}
-        source={{ html: source }}
-        javaScriptEnabled={true}
-      />
+      <WebView source={{ html: source }} javaScriptEnabled={true}></WebView>
     </Surface>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'stretch',
   },
   loginWebView: {

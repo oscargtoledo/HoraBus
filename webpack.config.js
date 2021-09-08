@@ -7,7 +7,22 @@ module.exports = async function (env, argv) {
   const isEnvProduction = env.mode === 'production';
 
   // Create the default config
-  const config = await createExpoWebpackConfigAsync(env, argv);
+  // const config = await createExpoWebpackConfigAsync(env, argv);
+  const config = await createExpoWebpackConfigAsync(
+    {
+      ...env,
+      mode: 'production',
+      entry: {
+        app: './App.js',
+        mainStack: './src/navigation/StackNavigator.js',
+      },
+      output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'static/js'),
+      },
+    },
+    argv
+  );
 
   if (isEnvProduction) {
     config.plugins.push(
@@ -31,6 +46,5 @@ module.exports = async function (env, argv) {
       })
     );
   }
-
   return config;
 };

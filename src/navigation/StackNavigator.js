@@ -6,8 +6,6 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 
-import Home from '../screens/Home';
-import About from '../screens/About';
 import Contact from '../screens/Contacts';
 import ScheduleSelector from '../screens/ScheduleSelector';
 import ScheduleView from '../screens/ScheduleView';

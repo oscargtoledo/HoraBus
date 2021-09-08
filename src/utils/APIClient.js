@@ -1,8 +1,8 @@
-import axios from 'axios';
+import { create } from 'axios';
 
 import env from './env';
 
-const instance = axios.create({
+const instance = create({
   baseURL: env.API_URL,
   // baseURL: 'https://buschedule-api.herokuapp.com',
   timeout: 4000,
