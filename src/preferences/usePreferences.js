@@ -9,7 +9,6 @@ export default function usePreferences() {
   const storeDarkThemeInfo = async () => {
     try {
       const jsonValue = JSON.stringify(!isThemeDark);
-      console.log(jsonValue);
       await AsyncStorage.setItem('darkTheme', jsonValue);
     } catch (e) {
       console.log(e);

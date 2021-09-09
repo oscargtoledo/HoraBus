@@ -1,29 +1,21 @@
 // ./screens/About.js
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Dimensions,
   View,
   StyleSheet,
-  // Button,
-  // VirtualizedList,
-  // FlatList,
-  // Image,
   Animated,
   ScrollView,
   TouchableOpacity,
-  // TouchableHighlight,
-  // BackHandler,
 } from 'react-native';
 import {
   Surface,
-  DataTable,
   Text,
   useTheme,
   withTheme,
   ActivityIndicator,
 } from 'react-native-paper';
-// import { back } from 'react-native/Libraries/Animated/src/Easing';
 import APIClient from '../utils/APIClient';
 
 // import {
@@ -36,8 +28,8 @@ import APIClient from '../utils/APIClient';
 //   Cell,
 // } from 'react-native-table-component';
 
-import { PinchGestureHandler, State } from 'react-native-gesture-handler';
-// var classNames = require('classnames');
+import { State } from 'react-native-gesture-handler';
+
 import usePreferences from '../preferences/usePreferences';
 import PreferencesContext from '../preferences/context';
 
@@ -174,13 +166,13 @@ class ScheduleView extends React.Component {
   }
 
   selectColumn(index) {
-    console.log('Selected ' + index);
+    // console.log('Selected ' + index);
     var ind = this.state.selectedColumns.indexOf(index);
-    console.log('index = ' + ind);
+    // console.log('index = ' + ind);
     if (ind !== -1) {
       var temp = this.state.selectedColumns;
       temp.splice(ind, 1);
-      console.log('temp = ' + temp);
+
       this.setState(prevState => ({
         selectedColumns: temp,
       }));

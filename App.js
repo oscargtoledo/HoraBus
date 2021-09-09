@@ -1,74 +1,24 @@
 // ./App.js
 require('dotenv').config();
 require('fs');
+import { NavigationContainer } from '@react-navigation/native';
 import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-  getStateFromPath,
-} from '@react-navigation/native';
-import {
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
+  Title,
+  Paragraph,
   Provider as PaperProvider,
+  Button,
+  Divider,
 } from 'react-native-paper';
-const CombinedDefaultTheme = {
-  ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
-  // roundness: 10,
-  dark: false,
-  colors: {
-    ...PaperDefaultTheme.colors,
-    ...NavigationDefaultTheme.colors,
-    primary: '#01579b',
-    primaryDark: '#002f6c',
-    primaryLight: '#4f83cc',
-    background: '#01579b',
-    accent: '#0091ea',
-    columnAccent: '#5390E0',
-    surface: '#01457A',
-    card: '#224C6B',
-    text: '#ffffff',
-    onSurface: '#01579b',
-  },
-};
-const CombinedDarkTheme = {
-  ...PaperDarkTheme,
-  ...NavigationDarkTheme,
-  dark: true,
-  mode: 'adaptative',
-  colors: {
-    ...PaperDarkTheme.colors,
-    ...NavigationDarkTheme.colors,
-    background: '#121212',
-    accent: '#6d6d6d',
-    primary: '#212121',
-    columnAccent: '#6b6b6b',
-    primary: '#424242',
-    primaryLight: '#6b6b6b',
-    onSurface: '#212121',
-  },
-};
-
-import React, { useEffect } from 'react';
-
-// import { MainStackNavigator } from './src/navigation/StackNavigator';
-// import BottomTabNavigator from './src/navigation/TabNavigator';
-
-// import { Text } from 'react-native-paper';
-// import { createStackNavigator } from '@react-navigation/stack';
-// import Home from './src/screens/Home';
-// import About from './src/screens/About';
-// import SafeAreaView from 'react-native-safe-area-view';
-import DrawerNavigator from './src/navigation/DrawerNavigator';
-import PreferencesContext from './src/preferences/context';
-import { StatusBar, BackHandler } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect, Suspense, lazy } from 'react';
 import {
-  createStackNavigator,
-  TransitionPresets,
-} from '@react-navigation/stack';
-import GeneralMenu from './src/utils/GeneralMenu';
+  CombinedDarkTheme,
+  CombinedDefaultTheme,
+} from './src/utils/themeConfig';
+
+import PreferencesContext from './src/preferences/context';
+import { View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
 
 const linking = {
@@ -95,51 +45,47 @@ const linking = {
       },
     },
   },
-  // getStateFromPath(path, config) {
-  //   const defaultState = getStateFromPath(path, config);
-  //   // add first page to routes, then you will have a back btn
-  //   const { routes } = defaultState;
-  //   console.log(routes);
-  //   const firstRouteName = 'Horaris';
-  //   if (routes && routes.length === 1 && routes[0].name !== firstRouteName) {
-  //     defaultState.routes.unshift({ name: firstRouteName });
-  //   }
-  //   return defaultState;
-  // },
 };
-
-import {
-  ContactStackNavigator,
-  ScheduleNavigator,
-  TwitterNavigator,
-} from './src/navigation/StackNavigator';
-import Contact from './src/screens/Contacts';
 import TabNavigator from './src/navigation/TabNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Modal, Portal, Text } from 'react-native-paper';
+
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
   const [isHidingUnselected, setHideUnselected] = React.useState(false);
+  const [showingFirstInfo, setShowFirstInfo] = React.useState(false);
 
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
-  BackHandler.addEventListener('hardwareBackPress', function () {
-    return true;
-  });
-  const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
 
+  const hideWelcomeModal = () => {
+    setShowFirstInfo(false);
+    AsyncStorage.setItem('showWelcome', false);
+  };
   useEffect(() => {
     const getDarkTheme = async () => {
       try {
         const value = await AsyncStorage.getItem('darkTheme');
-        console.log(JSON.parse(value));
+        // console.log(JSON.parse(value));
         return JSON.parse(value);
       } catch (e) {
         console.log('Error reading dark theme value');
       }
     };
+    const getShowWelcome = async () => {
+      try {
+        const value = await AsyncStorage.getItem('showWelcome');
+        return JSON.parse(value);
+      } catch (e) {
+        console.log('Error reading show welcome value');
+      }
+    };
     getDarkTheme().then(value => {
       if (value != null) setIsThemeDark(value);
+    });
+    getShowWelcome().then(value => {
+      if (value != null) setShowFirstInfo(value);
+      else setShowFirstInfo(true);
     });
   }, []);
   return (
@@ -154,7 +100,44 @@ function App() {
       >
         <PaperProvider theme={theme}>
           <NavigationContainer theme={theme} linking={linking}>
-            <TabNavigator />
+            <Suspense fallback={<div>Loading</div>}>
+              <Portal>
+                <Modal
+                  visible={showingFirstInfo}
+                  onDismiss={hideWelcomeModal}
+                  contentContainerStyle={{
+                    shadowOpacity: 0,
+                    height: '80%',
+                    width: '80%',
+                    alignSelf: 'center',
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: '10%',
+                    backgroundColor: theme?.colors.accent,
+                    borderRadius: 30,
+                  }}
+                >
+                  <Title>Ei!</Title>
+                  <Divider style={{ height: 30 }} />
+                  <Paragraph>
+                    Aquesta aplicació encara és molt jove, i per tant és
+                    possible que hi hagi errors. {'\n'}
+                    {'\n'}Com que no tenim cap relació amb Busos Plana, els nous
+                    horaris poden trigar uns dies a estar-hi.{'\n'}
+                    {'\n'}Per qualsevol cosa, es pot contactar directament amb
+                    mi a l'apartat de Contacte.
+                    {'\n'}
+                    {'\n'}
+                    {'\n'}Espero que et sigui útil!
+                  </Paragraph>
+                  <Button mode="contained" onPress={hideWelcomeModal}>
+                    OK!
+                  </Button>
+                </Modal>
+              </Portal>
+              <TabNavigator />
+            </Suspense>
           </NavigationContainer>
         </PaperProvider>
       </PreferencesContext.Provider>

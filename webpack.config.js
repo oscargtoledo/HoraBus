@@ -11,15 +11,15 @@ module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(
     {
       ...env,
-      mode: 'production',
-      entry: {
-        app: './App.js',
-        mainStack: './src/navigation/StackNavigator.js',
-      },
-      output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'static/js'),
-      },
+      // mode: 'production',
+      // entry: {
+      //   app: './App.js',
+      //   mainStack: './src/navigation/StackNavigator.js',
+      // },
+      // output: {
+      //   filename: '[name].bundle.js',
+      //   path: path.resolve(__dirname, 'static/js'),
+      // },
     },
     argv
   );

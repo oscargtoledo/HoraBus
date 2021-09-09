@@ -24,6 +24,8 @@ import {
   Avatar,
   TouchableRipple,
   IconButton,
+  Portal,
+  Modal,
 } from 'react-native-paper';
 import { Icon } from 'react-native-elements';
 import APIClient from '../utils/APIClient';
@@ -53,7 +55,7 @@ const ScheduleSelector = ({ navigation }) => {
   useEffect(() => {
     const retrieveData = async () => {
       const result = await APIClient.get('/schedules/names');
-      console.log(result.data);
+      // console.log(result.data);
       setSchedules(result.data);
       setRefreshing(false);
     };

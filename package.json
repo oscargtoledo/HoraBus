@@ -49,6 +49,7 @@
     "react-native-webview": "11.6.2",
     "react-promise-tracker": "^2.1.0",
     "rn-placeholder": "^3.0.3",
+    "webpack-dev-server": "^4.1.1",
     "workbox-background-sync": "^6.1.5",
     "workbox-broadcast-update": "^6.1.5",
     "workbox-cacheable-response": "^6.1.5",

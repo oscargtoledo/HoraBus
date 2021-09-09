@@ -24,7 +24,7 @@ const Contact = () => {
   const sendFeedback = async (alias, content) => {
     await APIClient.post('/feedback', { alias: alias, feedback: content })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         if (response.status == 201) {
           console.log('success');
           alert("El feedback s'ha enviat correctament", 'My Alert Msg', [
