@@ -1,16 +1,16 @@
 // ./screens/About.js
 import 'react-native-gesture-handler';
-import { ThemeProvider } from '@react-navigation/native';
+// import { ThemeProvider } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { RefreshControl } from 'react-native-web-refresh-control';
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-  ShineOverlay,
-} from 'rn-placeholder';
+// import {
+//   Placeholder,
+//   PlaceholderMedia,
+//   PlaceholderLine,
+//   Fade,
+//   ShineOverlay,
+// } from 'rn-placeholder';
 
 import {
   Button,
@@ -18,23 +18,24 @@ import {
   Surface,
   ActivityIndicator,
   Text,
-  Card,
-  Title,
-  Paragraph,
+  // Card,
+  // Title,
+  // Paragraph,
   Avatar,
-  TouchableRipple,
-  IconButton,
-  Portal,
-  Modal,
+  // TouchableRipple,
+  Snackbar,
+  // Portal,
+  // Modal,
 } from 'react-native-paper';
-import { Icon } from 'react-native-elements';
+// import { Icon } from 'react-native-elements';
 import APIClient from '../utils/APIClient';
-
+import Icon from '@mdi/react';
+import { mdiChevronRightCircle } from '@mdi/js';
 const ScheduleSelector = ({ navigation }) => {
   const theme = useTheme();
   const [schedules, setSchedules] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
+  const [hasError, setHasError] = useState(false);
   // const retrieveData = async () => {
   //   try {
   //     const { data } = await APIClient.get('/schedules/names');
@@ -54,10 +55,16 @@ const ScheduleSelector = ({ navigation }) => {
 
   useEffect(() => {
     const retrieveData = async () => {
-      const result = await APIClient.get('/schedules/names');
-      // console.log(result.data);
-      setSchedules(result.data);
-      setRefreshing(false);
+      try {
+        const result = await APIClient.get('/schedules/names');
+        // console.log(result.data);
+        setSchedules(result.data);
+        setRefreshing(false);
+      } catch (e) {
+        // console.log(e);
+        setHasError(true);
+        setRefreshing(false);
+      }
     };
     retrieveData();
     // retrieveData();
@@ -90,6 +97,22 @@ const ScheduleSelector = ({ navigation }) => {
           padding: 10,
         }}
       > */}
+      <Snackbar
+        visible={hasError}
+        duration={2000}
+        onDismiss={() => setHasError(false)}
+        action={{
+          label: 'OK',
+        }}
+        wrapperStyle={
+          {
+            // height: window.innerHeight,
+          }
+        }
+      >
+        <Text>Hi ha hagut un error al carregar els horaris.</Text>
+      </Snackbar>
+
       <Button
         mode="contained"
         style={{ margin: 5 }}
@@ -97,14 +120,12 @@ const ScheduleSelector = ({ navigation }) => {
       >
         Recarregar Horaris
       </Button>
-
       <ScheduleList
         isLoading={refreshing}
         items={schedules}
         navigation={navigation}
         onRefresh={onRefresh}
       />
-      {/* </ScrollView> */}
     </Surface>
   );
 };
@@ -185,7 +206,20 @@ const ScheduleButton = ({ scheduleData, navigation }) => {
           alignContent: 'center',
         }}
       >
-        <IconButton
+        <TouchableOpacity
+          style={{ height: '100%' }}
+          onPress={() => {
+            navigation.navigate('Horari', {
+              routeId: scheduleData._id,
+            });
+          }}
+        >
+          <Icon
+            path={mdiChevronRightCircle}
+            color={theme?.colors.accent}
+          ></Icon>
+        </TouchableOpacity>
+        {/* <IconButton
           icon="chevron-right"
           theme={theme}
           // color={'red'}
@@ -208,7 +242,7 @@ const ScheduleButton = ({ scheduleData, navigation }) => {
               routeId: scheduleData._id,
             });
           }}
-        ></IconButton>
+        ></IconButton> */}
       </View>
     </Surface>
   );

@@ -13,6 +13,12 @@ module.exports = function (api) {
     plugins: [
       ['react-native-web'],
       [
+        'optional-require',
+        {
+          blacklist: ['react-native-vector-icons'],
+        },
+      ],
+      [
         'module:react-native-dotenv',
         {
           moduleName: '@env',
@@ -24,5 +30,10 @@ module.exports = function (api) {
         },
       ],
     ],
+    env: {
+      production: {
+        plugins: ['react-native-paper/babel'],
+      },
+    },
   };
 };

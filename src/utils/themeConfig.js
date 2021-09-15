@@ -24,6 +24,7 @@ const CombinedDefaultTheme = {
     card: '#224C6B',
     text: '#ffffff',
     onSurface: '#01579b',
+    icons: '#80ABCD',
   },
 };
 const CombinedDarkTheme = {
@@ -41,6 +42,7 @@ const CombinedDarkTheme = {
     primary: '#424242',
     primaryLight: '#6b6b6b',
     onSurface: '#212121',
+    icons: '#A1A1A1',
   },
 };
 

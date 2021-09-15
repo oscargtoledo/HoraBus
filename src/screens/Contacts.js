@@ -43,11 +43,51 @@ const Contact = () => {
         console.log(error);
       });
   };
+
   const [visible, setVisible] = React.useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
 
   const onDismissSnackBar = () => setVisible(false);
+
+  const [currentName, setName] = React.useState('');
+  const [currentMessage, setMessage] = React.useState('');
+  const encode = data => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&');
+  };
+  // prettier-ignore
+  const handleSubmit = e => {
+    const fetchConfig = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'data-netlify': 'true',
+      },
+      body: encode({
+        'form-name': 'contact',
+        'name': usernameText,
+        'message': inputText,
+      }),
+    };
+    console.log(fetchConfig);
+    fetch('/', fetchConfig)
+      .then((e) => {alert("El feedback s'ha enviat correctament", 'My Alert Msg', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK' },
+      ]);
+      setUsernameText('Anònim');
+      setInputText('');})
+      .catch(error => alert(error));
+
+    e.preventDefault();
+  };
+
   return (
     <Surface style={styles.center}>
       <View
@@ -106,24 +146,11 @@ const Contact = () => {
         ></TextInput>
         <Button
           mode={'contained'}
-          onPress={() => sendFeedback(usernameText, inputText)}
+          // onPress={() => sendFeedback(usernameText, inputText)}
+          onPress={() => handleSubmit()}
         >
           Enviar
         </Button>
-        <Snackbar
-          visible={visible}
-          onDismiss={onDismissSnackBar}
-          action={{
-            label: 'OK',
-            onPress: () => {
-              // Do something
-            },
-          }}
-          duration={1000}
-          // style={{ position: 'absolute', y: 0 }}
-        >
-          <Text>S'ha copiat el link!</Text>
-        </Snackbar>
       </View>
     </Surface>
   );

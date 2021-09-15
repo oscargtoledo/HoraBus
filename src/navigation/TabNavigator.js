@@ -1,24 +1,23 @@
 // ./navigation/TabNavigator.js
 
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import {
   MainStackNavigator,
-  ContactStackNavigator,
-  ScheduleNavigator,
-  TwitterNavigator,
+  // ContactStackNavigator,
+  // ScheduleNavigator,
+  // TwitterNavigator,
 } from './StackNavigator';
 import TwitterFeed from '../screens/TwitterFeed';
 import Contact from '../screens/Contacts';
 
-import { useTheme, Surface } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  createStackNavigator,
-  TransitionPresets,
-} from '@react-navigation/stack';
+import { useTheme, Snackbar } from 'react-native-paper';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { Icon } from '@mdi/react';
+import { mdiCalendarBlank, mdiEmail, mdiTwitter } from '@mdi/js';
 const Tab = createMaterialBottomTabNavigator();
 
 // const TabNavigator = () => {
@@ -57,21 +56,24 @@ const TabNavigator = () => {
         name="Horaris"
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="calendar-month"
-              color={color}
-              size={26}
-            />
+            <Icon path={mdiCalendarBlank} color={theme?.colors.icons}></Icon>
+            // <MaterialCommunityIcons
+            //   name="calendar-month"
+            //   color={color}
+            //   size={26}
+            // />
           ),
         }}
         component={MainStackNavigator}
       />
+
       <Tab.Screen
         name="Twitter"
         component={TwitterFeed}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="twitter" color={color} size={26} />
+            // <MaterialCommunityIcons name="twitter" color={color} size={26} />
+            <Icon path={mdiTwitter} color={theme?.colors.icons}></Icon>
           ),
         }}
       />
@@ -80,7 +82,8 @@ const TabNavigator = () => {
         component={Contact}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="email" color={color} size={26} />
+            // <MaterialCommunityIcons name="email" color={color} size={26} />
+            <Icon path={mdiEmail} color={theme?.colors.icons}></Icon>
           ),
         }}
       />
