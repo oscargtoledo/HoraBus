@@ -12,7 +12,7 @@ let API_URL;
 const releaseChannel = Constants.manifest.releaseChannel;
 
 if (Platform.OS == 'web') {
-  API_URL = 'https://buschedule-api.herokuapp.com';
+  API_URL = 'https://horabus-api.onrender.com';
   // API_URL = 'http://localhost:8080';
 } else {
   if (releaseChannel === undefined) {
