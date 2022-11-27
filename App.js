@@ -1,85 +1,201 @@
 // ./App.js
-// require('dotenv').config();
+require('dotenv').config();
+require('fs');
+import { NavigationContainer } from '@react-navigation/native';
 import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-} from '@react-navigation/native';
-import {
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
+  Title,
+  Paragraph,
   Provider as PaperProvider,
+  Button,
+  Divider,
+  Snackbar,
 } from 'react-native-paper';
-const CombinedDefaultTheme = {
-  ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
-  // roundness: 10,
-  dark: false,
-  colors: {
-    ...PaperDefaultTheme.colors,
-    ...NavigationDefaultTheme.colors,
-    primary: '#01579b',
-    primaryDark: '#002f6c',
-    primaryLight: '#4f83cc',
-    background: '#01579b',
-    accent: '#3c67a3',
-    columnAccent: '#5390E0',
-    surface: '#01457A',
-    card: '#224C6B',
-    text: '#ffffff',
-  },
-};
-const CombinedDarkTheme = {
-  ...PaperDarkTheme,
-  ...NavigationDarkTheme,
-  dark: true,
-  colors: {
-    ...PaperDarkTheme.colors,
-    ...NavigationDarkTheme.colors,
-    background: '#121212',
-    accent: '#424242',
-    primary: '#212121',
-    columnAccent: '#6b6b6b',
-    primary: '#424242',
-  },
-};
+import React, { useEffect } from 'react';
+import {
+  CombinedDarkTheme,
+  CombinedDefaultTheme,
+} from './src/utils/themeConfig';
 
-import React from 'react';
-
-import { MainStackNavigator } from './src/navigation/StackNavigator';
-import BottomTabNavigator from './src/navigation/TabNavigator';
-import DrawerNavigator from './src/navigation/DrawerNavigator';
 import PreferencesContext from './src/preferences/context';
+import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
+import { Analytics, PageHit } from 'expo-analytics';
+const linking = {
+  prefixes: ['https://horabus.netlify.app', 'horabus://'],
+  config: {
+    screens: {
+      NotFound: '*',
+      Twitter: {
+        path: 'Twitter',
+        screens: {
+          Tweets: '',
+        },
+      },
+      Contact: '',
+      Horaris: {
+        path: 'Horaris',
+        screens: {
+          Tots: '',
+          Horari: {
+            // initialRouteName: 'Horaris',
+            path: '/:routeId',
+          },
+        },
+      },
+    },
+  },
+};
+import TabNavigator from './src/navigation/TabNavigator';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Modal, Portal, Text } from 'react-native-paper';
 
-import { Text } from 'react-native-paper';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/screens/Home';
-import About from './src/screens/About';
-import SafeAreaView from 'react-native-safe-area-view';
-import { StatusBar } from 'react-native';
+
+// const analytics = new Analytics('UA-207649929-1', null, { debug: true })
 
 function App() {
   const [isThemeDark, setIsThemeDark] = React.useState(false);
+  const [isHidingUnselected, setHideUnselected] = React.useState(false);
+  const [showingFirstInfo, setShowFirstInfo] = React.useState(false);
+  const [showReload, setShowReload] = React.useState(false);
+  const [waitingWorker, setWaitingWorker] = React.useState(null);
+
   const theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
-  return (
-    <PreferencesContext.Provider value={{ isThemeDark, setIsThemeDark }}>
-      <PaperProvider theme={theme}>
-        <NavigationContainer theme={theme}>
-          {/* <MainStackNavigator /> */}
-          {/* <BottomTabNavigator /> */}
+  const hideWelcomeModal = () => {
+    setShowFirstInfo(false);
+    AsyncStorage.setItem('showWelcome', false);
+  };
 
-          {/* <SafeAreaView backgroundColor={theme?.colors.primary}> */}
-          {/* <Text>ey</Text> */}
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={theme?.colors.primaryDark}
-          ></StatusBar>
-          {/* </SafeAreaView> */}
-          <DrawerNavigator />
-        </NavigationContainer>
-      </PaperProvider>
-    </PreferencesContext.Provider>
+  const onSWUpdate = registration => {
+    console.log('updateLogged');
+    setShowReload(true);
+    setWaitingWorker(registration.waiting);
+  };
+
+  const onCacheSuccess = () => {
+    console.log('Web is cached');
+  };
+
+  const reloadPage = () => {
+    waitingWorker?.postMessage({ type: 'SKIP_WAITING' });
+    setShowReload(false);
+    window.location.reload(true);
+  };
+  useEffect(() => {
+    const getDarkTheme = async () => {
+      try {
+        const value = await AsyncStorage.getItem('darkTheme');
+        // console.log(JSON.parse(value));
+        return JSON.parse(value);
+      } catch (e) {
+        console.log('Error reading dark theme value');
+      }
+    };
+    const getShowWelcome = async () => {
+      try {
+        const value = await AsyncStorage.getItem('showWelcome');
+        return JSON.parse(value);
+      } catch (e) {
+        console.log('Error reading show welcome value');
+      }
+    };
+    getDarkTheme().then(value => {
+      if (value != null) setIsThemeDark(value);
+    });
+    getShowWelcome().then(value => {
+      if (value != null) setShowFirstInfo(value);
+      else setShowFirstInfo(true);
+    });
+    serviceWorkerRegistration.register({
+      onUpdate: onSWUpdate,
+      onSuccess: onCacheSuccess,
+    });
+    // analytics.hit(new PageHit('Home')).then(() => {console.log("Success")}).catch((e) => {console.log(e)})
+  }, []);
+  return (
+    <SafeAreaProvider>
+      <PreferencesContext.Provider
+        value={{
+          isThemeDark,
+          setIsThemeDark,
+          isHidingUnselected,
+          setHideUnselected,
+        }}
+      >
+        <PaperProvider theme={theme}>
+          <NavigationContainer theme={theme} linking={linking}>
+            <Portal>
+              <Modal
+                visible={showingFirstInfo}
+                onDismiss={hideWelcomeModal}
+                contentContainerStyle={{
+                  shadowOpacity: 0,
+                  height: '80%',
+                  width: '80%',
+                  alignSelf: 'center',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: '10%',
+                  backgroundColor: theme?.colors.accent,
+                  borderRadius: 30,
+                }}
+              >
+                <Title>Ei!</Title>
+                <Divider style={{ height: 30 }} />
+                <Paragraph>
+                  Aquesta aplicació encara és molt jove, i per tant és possible
+                  que hi hagi errors. {'\n'}
+                  {'\n'}Com que no tenim cap relació amb Busos Plana, els nous
+                  horaris poden trigar uns dies a estar-hi.{'\n'}
+                  {'\n'}Per qualsevol cosa, es pot contactar directament amb mi
+                  a l'apartat de Contacte.
+                  {'\n'}
+                  {'\n'}
+                  {'\n'}Espero que et sigui útil!
+                </Paragraph>
+                <Button mode="contained" onPress={hideWelcomeModal}>
+                  OK!
+                </Button>
+              </Modal>
+            </Portal>
+            <TabNavigator />
+            <Snackbar
+              visible={showReload}
+              duration={200000}
+              onDismiss={reloadPage}
+              action={{
+                label: 'Recarregar',
+              }}
+              wrapperStyle={{
+                height: window.innerHeight,
+              }}
+            >
+              <Text>
+                Hi ha una versió nova, clica el botó per a recarregar l'app
+              </Text>
+            </Snackbar>
+          </NavigationContainer>
+        </PaperProvider>
+      </PreferencesContext.Provider>
+    </SafeAreaProvider>
   );
 }
+
+const showInstallPromotion = () => {
+  console.log('Can install app.');
+};
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  showInstallPromotion();
+  // Optionally, send analytics event that PWA install promo was shown.
+  console.log(`'beforeinstallprompt' event was fired.`);
+});
+
 export default App;

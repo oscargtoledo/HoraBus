@@ -13,3 +13,7 @@ web-build/
 .DS_Store
 .env
 .vscode/
+
+# Local Netlify folder
+.netlify
+node_modules
