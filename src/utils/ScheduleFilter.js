@@ -41,7 +41,7 @@ function ScheduleFilter(props) {
                 style={{backgroundColor: theme?.colors.accent, padding: 3, borderRadius: 5 }}
             >
                 <View style={{ flex:1, flexDirection:'row', alignItems:'center'}}>
-                    <Text>Escollir parades</Text>
+                    <Text>Escollir{'\n'}parades</Text>
                     <Checkbox
                         status={isHidingUnselected ? 'checked' : 'unchecked'}
                         uncheckedColor={theme?.colors.primary}

@@ -179,6 +179,7 @@ class ScheduleView extends React.Component {
                 loop
                 easing={Easing.linear}
                 repeatSpacer={50}
+                marqueeDelay={1500}
               >
                 {data[0].routeName}
               </TextTicker>
