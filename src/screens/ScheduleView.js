@@ -34,6 +34,7 @@ import { State } from 'react-native-gesture-handler';
 
 import usePreferences from '../preferences/usePreferences';
 import PreferencesContext from '../preferences/context';
+import { Easing } from 'react-native-reanimated';
 
 const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
   const theme = useTheme();
@@ -164,30 +165,24 @@ class ScheduleView extends React.Component {
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-around'
-            // flex: 1,
-            // flexDirection: 'row',
-            // alignItems: 'center',
-            // justifyContent: 'center',
+
           }}>
-            <Text
-              style={{
-                flex: 1,
-                // flexShrink: 1,
-                // flexBasis:0,
-                textAlign: 'center',
-                color: theme?.colors.text,
-                fontSize: 18,
-                fontWeight: 500
-              }}
-              // duration={3000}
-              // loop
-              // bounce
-              // repeatSpacer={50}
-              // marqueeDelay={1000}
+            <View style={{flex:1, paddingRight:10}}>
+              <TextTicker
+                style={{
+                  flex: 1,
+                  color: theme?.colors.text,
+                  fontSize: 18,
+                  fontWeight: 500
+                }}
+                duration={10000}
+                loop
+                easing={Easing.linear}
+                repeatSpacer={50}
               >
-              {data[0].routeName}
-            </Text>
+                {data[0].routeName}
+              </TextTicker>
+            </View>
             <ScheduleFilter />
           </View>,
       });
