@@ -2528,12 +2528,17 @@
   resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.1.0.tgz"
   integrity sha512-jZncciZPGuoP6B6f+Wpf6MYSSYy86B2HJDbFTCtT5xZV0w6V9GgCeqvSTOEAxifZrmKl8uDxsr0GrIxgQE8NxA==
 
+"@react-navigation/elements@^1.3.9":
+  version "1.3.9"
+  resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.9.tgz"
+  integrity sha512-V9aIZN19ufaKWlXT4UcM545tDiEt9DIQS+74pDgbnzoQcDypn0CvSqWopFhPACMdJatgmlZUuOrrMfTeNrBWgA==
+
 "@react-navigation/material-bottom-tabs@^6.0.5":
-  version "6.0.5"
-  resolved "https://registry.npmjs.org/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-6.0.5.tgz"
-  integrity sha512-u1vEH4Sxs3vofaS08jNcY9305OAsRQQPVZMfa2dsBTAaxEhH/nDotATmKngZoXiMm269bc/8LUUkHKL5/v9xvQ==
+  version "6.2.7"
+  resolved "https://registry.npmjs.org/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-6.2.7.tgz"
+  integrity sha512-wA992ui2+w8WDzW/j+AFKJ/T9HAQrtJICxyF2uYr8osCQXNOoUm54TlwCS1PF/WBi41MyGjm/pmC2kECF7KQnA==
   dependencies:
-    "@react-navigation/elements" "^1.1.0"
+    "@react-navigation/elements" "^1.3.9"
 
 "@react-navigation/native@^5.0.5", "@react-navigation/native@^5.7.6", "@react-navigation/native@^6.0.0":
   version "5.9.8"
