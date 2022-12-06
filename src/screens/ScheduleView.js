@@ -167,7 +167,7 @@ class ScheduleView extends React.Component {
             alignItems: 'center',
 
           }}>
-            <View style={{flex:1, paddingRight:10}}>
+            <View style={{ flex: 1, paddingRight: 10 }}>
               <TextTicker
                 style={{
                   flex: 1,
@@ -279,6 +279,7 @@ class ScheduleView extends React.Component {
                         padding: 3,
                         justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
+                        backgroundColor: theme?.colors.surface
                       },
                       this.state.selectedColumns.includes(stopIndex)
                         ? {
@@ -333,6 +334,7 @@ class ScheduleView extends React.Component {
       <View
         style={{
           flex: 1,
+          backgroundColor: theme?.colors.background
         }}
       >
         <View>
@@ -358,6 +360,7 @@ class ScheduleView extends React.Component {
                       padding: 3,
                       justifyContent: 'center', //Centered horizontally
                       alignItems: 'center', //Centered vertically
+                      backgroundColor: theme?.colors.surface
                     },
                     this.state.selectedColumns.includes(stopIndex)
                       ? {
@@ -398,6 +401,9 @@ class ScheduleView extends React.Component {
                         padding: 3,
                         justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
+                        backgroundColor: theme?.colors.primaryLight,
+                        borderTopWidth:3,
+                        borderColor: theme?.colors.primaryDark
                       },
                     ]}
                     key={id}

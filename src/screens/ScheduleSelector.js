@@ -82,6 +82,7 @@ const ScheduleSelector = ({ navigation }) => {
       style={{
         flexGrow: 1,
         flexDirection: 'column',
+        backgroundColor: theme?.colors.background
       }}
     >
       {/* <Text>{JSON.stringify(schedules)}</Text> */}
@@ -135,7 +136,7 @@ const ScheduleList = ({ items, isLoading, navigation, onRefresh }) => {
     // return true ? (
     <ActivityIndicator size="large" />
   ) : (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1}}>
       <ScrollView
         contentContainerStyle={{
           height: 0,

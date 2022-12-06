@@ -6,7 +6,9 @@ import {
   TouchableRipple,
   Switch,
   Text,
+  IconButton,
 } from 'react-native-paper';
+
 
 import usePreferences from '../preferences/usePreferences';
 
@@ -22,13 +24,19 @@ function DarkModeSwitch(props) {
         justifyContent: 'center',
       }}
     >
-      <Text style={{ color: theme?.colors.text }}>Mode fosc</Text>
+      {/* <Text style={{ color: theme?.colors.text }}>Mode fosc</Text> */}
       {/* <TouchableRipple > */}
-      <Switch
+      {/* <Switch
         onValueChange={() => toggleTheme()}
         color={'red'}
         value={isThemeDark}
-      ></Switch>
+      /> */}
+      <IconButton
+        mode='contained'
+        icon={isThemeDark? "white-balance-sunny" : "weather-night"}
+        onPress={() => toggleTheme()}
+        style={{backgroundColor:theme?.colors.accent}}
+      />
 
       {/* </TouchableRipple> */}
     </View>
