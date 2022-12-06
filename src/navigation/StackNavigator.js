@@ -25,6 +25,7 @@ import {
   DarkModeSwitch as DKSwitch,
 } from '../utils/DarkModeSwitch';
 import GeneralMenu from '../utils/GeneralMenu';
+import { ScheduleFilter } from '../utils/ScheduleFilter';
 const MainStack = createStackNavigator();
 const ContactStack = createStackNavigator();
 const TwitterStack = createStackNavigator();
@@ -61,13 +62,15 @@ const MainStackNavigator = ({ scene }) => {
         component={ScheduleSelector}
         options={{
           title: 'HoraBus',
+          headerRight: () => <DarkModeSwitch />
         }}
       />
       <MainStack.Screen
         name="Horari"
         component={ScheduleView}
-        // options={({ route }) => ({ title: route.params.routeName })}
-        options={{ title: 'Horari', headerRight: () => <GeneralMenu /> }}
+        options={{
+          title: 'Carregant...',
+        }}
       />
     </MainStack.Navigator>
   );

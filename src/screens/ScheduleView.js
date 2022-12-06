@@ -17,6 +17,8 @@ import {
   ActivityIndicator,
 } from 'react-native-paper';
 import APIClient from '../utils/APIClient';
+import { ScheduleFilter } from '../utils/ScheduleFilter';
+import TextTicker from 'react-native-text-ticker'
 
 // import {
 //   Table,
@@ -108,10 +110,10 @@ const CustomRow = ({ item, index, selected, extraStyle = false, stopName }) => {
                   ? { backgroundColor: theme?.colors.primaryLight }
                   : { backgroundColor: theme?.colors.primary }
                 : selected
-                ? { backgroundColor: theme?.colors.columnAccent }
-                : hourIndex % 2
-                ? { backgroundColor: theme?.colors.primaryLight }
-                : { backgroundColor: theme?.colors.primary },
+                  ? { backgroundColor: theme?.colors.columnAccent }
+                  : hourIndex % 2
+                    ? { backgroundColor: theme?.colors.primaryLight }
+                    : { backgroundColor: theme?.colors.primary },
             ]}
           >
             {hour != '' ? hour : '-'}
@@ -153,8 +155,42 @@ class ScheduleView extends React.Component {
     try {
       const { routeId } = this.props.route.params;
       const { data } = await APIClient.get('/schedules/' + routeId);
+      const { theme } = this.props;
       // this.setState({ schedule: data[0] });
       this.props.navigation.setOptions({ title: data[0].routeName });
+      this.props.navigation.setOptions({
+        headerTitle: (props) =>
+          <View style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around'
+            // flex: 1,
+            // flexDirection: 'row',
+            // alignItems: 'center',
+            // justifyContent: 'center',
+          }}>
+            <Text
+              style={{
+                flex: 1,
+                // flexShrink: 1,
+                // flexBasis:0,
+                textAlign: 'center',
+                color: theme?.colors.text,
+                fontSize: 18,
+                fontWeight: 500
+              }}
+              // duration={3000}
+              // loop
+              // bounce
+              // repeatSpacer={50}
+              // marqueeDelay={1000}
+              >
+              {data[0].routeName}
+            </Text>
+            <ScheduleFilter />
+          </View>,
+      });
       return data[0];
     } catch (ex) {
       this.setState({ fetchError: true });
@@ -250,8 +286,8 @@ class ScheduleView extends React.Component {
                       },
                       this.state.selectedColumns.includes(stopIndex)
                         ? {
-                            backgroundColor: theme?.colors.columnAccent,
-                          }
+                          backgroundColor: theme?.colors.columnAccent,
+                        }
                         : {},
                     ]}
                     key={stopIndex}
@@ -329,8 +365,8 @@ class ScheduleView extends React.Component {
                     },
                     this.state.selectedColumns.includes(stopIndex)
                       ? {
-                          backgroundColor: theme?.colors.columnAccent,
-                        }
+                        backgroundColor: theme?.colors.columnAccent,
+                      }
                       : {},
                   ]}
                   key={stopIndex}

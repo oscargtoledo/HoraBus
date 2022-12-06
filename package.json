@@ -45,6 +45,7 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-table-component": "^1.2.1",
+    "react-native-text-ticker": "^1.14.0",
     "react-native-web": "^0.17.1",
     "react-native-web-refresh-control": "^1.1.0",
     "react-native-web-webview": "^1.0.2",
