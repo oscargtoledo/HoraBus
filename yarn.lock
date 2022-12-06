@@ -1246,10 +1246,10 @@
   resolved "https://registry.npmjs.org/@bugsnag/safe-json-stringify/-/safe-json-stringify-6.0.0.tgz"
   integrity sha512-htzFO1Zc57S8kgdRK9mLcPVTW1BY2ijfH7Dk2CeZmspTWKdKqSo1iwmqrq2WtRjFlo8aRZYgLX0wFrDXF/9DLA==
 
-"@callstack/react-theme-provider@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.npmjs.org/@callstack/react-theme-provider/-/react-theme-provider-3.0.6.tgz"
-  integrity sha512-wwKMXfmklfogpalNZT0W+jh76BIquiYUiQHOaPmt/PCyCEP/E6rP+e7Uie6mBZrfkea9WJYJ+mus6r+45JAEhg==
+"@callstack/react-theme-provider@^3.0.7":
+  version "3.0.8"
+  resolved "https://registry.npmjs.org/@callstack/react-theme-provider/-/react-theme-provider-3.0.8.tgz"
+  integrity sha512-5U231sYY2sqQOaELX0WBCn+iluV8bFaXIS7em03k4W5Xz0AhGvKlnpLIhDGFP8im/SvNW7/2XoR0BsClhn9t6Q==
   dependencies:
     deepmerge "^3.2.0"
     hoist-non-react-statics "^3.3.0"
@@ -13968,11 +13968,11 @@ react-native-iphone-x-helper@^1.3.0, react-native-iphone-x-helper@^1.3.1:
   integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
 
 react-native-paper@^4.9.2, "react-native-paper@>= 3.0.0":
-  version "4.9.2"
-  resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-4.9.2.tgz"
-  integrity sha512-J7FRsd0YblQawtuj9I46F//apZHadsCKk6jWpc6njFTYdgUeCdkR8KgEto7cp2WxbcGNELx7KGwPQ4zAgX746A==
+  version "4.12.5"
+  resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-4.12.5.tgz"
+  integrity sha512-gdUtJJf0bw/0xoCE1jR6qCQiQCQZ9ivZh0lbPghFFaGxX88WtTQpusnGON8WhLPeH5odEQ4dTBu99lnIQvSFow==
   dependencies:
-    "@callstack/react-theme-provider" "^3.0.6"
+    "@callstack/react-theme-provider" "^3.0.7"
     color "^3.1.2"
     react-native-iphone-x-helper "^1.3.1"
 
@@ -14014,6 +14014,11 @@ react-native-table-component@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/react-native-table-component/-/react-native-table-component-1.2.1.tgz"
   integrity sha512-sapwO0bONfQtpWg3GVMwP5D3lGEJlxPB3c7fb0soXBynvCa+SBktacVZ9OmYJnIbRJ3uW5pS4tzNc8GmE+UScw==
+
+react-native-text-ticker@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.npmjs.org/react-native-text-ticker/-/react-native-text-ticker-1.14.0.tgz"
+  integrity sha512-8TNGTcW43dfnCqIuXVA7F1Ny8SKGrw0pIrNS5nM7eda+6AsuPTZh3JQ2CwmSRYfsrlnS4QFrpyo5ykpI8nvtCw==
 
 react-native-vector-icons@*, "react-native-vector-icons@>= 6.0.0", react-native-vector-icons@>7.0.0:
   version "9.2.0"
@@ -14099,7 +14104,7 @@ react-refresh@^0.4.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   integrity sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==
 
-react@*, react@^16.0, react@^16.13.1, react@^16.3.0, "react@^16.8.0 || ^17.0.0", react@>=16.0, react@>=16.8.0, react@>=17.0.1, react@16.13.1, react@17.0.2:
+react@*, react@^16.0, react@^16.13.1, "react@^16.8.0 || ^17.0.0", react@>=16.0, react@>=16.3.0, react@>=16.8.0, react@>=17.0.1, react@16.13.1, react@17.0.2:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   integrity sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w==
