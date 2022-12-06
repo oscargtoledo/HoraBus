@@ -401,7 +401,7 @@ class ScheduleView extends React.Component {
                         padding: 3,
                         justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
-                        backgroundColor: theme?.colors.primaryLight,
+                        backgroundColor: theme?.colors.surface,
                         borderTopWidth:3,
                         borderColor: theme?.colors.primaryDark
                       },
