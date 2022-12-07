@@ -1,24 +1,21 @@
 // ./App.js
-require('dotenv').config();
-require('fs');
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  Title,
-  Paragraph,
-  Provider as PaperProvider,
-  Button,
-  Divider,
-  Snackbar,
-} from 'react-native-paper';
+// require('dotenv').config();
+// require('fs');
+import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
 import React, { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider, Text, Portal, Modal, Title, Divider, Paragraph,Button,Snackbar } from 'react-native-paper';
+import PreferencesContext from './src/preferences/context';
+import TabNavigator from './src/navigation/TabNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
 } from './src/utils/themeConfig';
 
-import PreferencesContext from './src/preferences/context';
-import * as serviceWorkerRegistration from './src/serviceWorkerRegistration';
-import { Analytics, PageHit } from 'expo-analytics';
+// import PreferencesContext from './src/preferences/context';
+// import { Analytics, PageHit } from 'expo-analytics';
 const linking = {
   prefixes: ['https://horabus.netlify.app', 'horabus://'],
   config: {
@@ -44,10 +41,10 @@ const linking = {
     },
   },
 };
-import TabNavigator from './src/navigation/TabNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Modal, Portal, Text } from 'react-native-paper';
+// import TabNavigator from './src/navigation/TabNavigator';
+// import { SafeAreaProvider } from 'react-native-safe-area-context';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { Modal, Portal, Text } from 'react-native-paper';
 
 
 // const analytics = new Analytics('UA-207649929-1', null, { debug: true })
@@ -179,6 +176,7 @@ function App() {
         </PaperProvider>
       </PreferencesContext.Provider>
     </SafeAreaProvider>
+
   );
 }
 

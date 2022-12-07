@@ -30,8 +30,6 @@ import TextTicker from 'react-native-text-ticker'
 //   Cell,
 // } from 'react-native-table-component';
 
-import { State } from 'react-native-gesture-handler';
-
 import usePreferences from '../preferences/usePreferences';
 import PreferencesContext from '../preferences/context';
 import { Easing } from 'react-native-reanimated';
@@ -216,26 +214,6 @@ class ScheduleView extends React.Component {
 
     // console.log(index);
   }
-
-  scale = new Animated.Value(1);
-  onZoomEvent = Animated.event(
-    [
-      {
-        nativeEvent: { scale: this.scale },
-      },
-    ],
-    {
-      useNativeDriver: true,
-    }
-  );
-  onZoomStateChange = event => {
-    if (event.nativeEvent.oldState === State.ACTIVE) {
-      Animated.spring(this.scale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
 
   regularSchedule() {
     const { theme } = this.props;

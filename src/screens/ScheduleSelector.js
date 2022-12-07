@@ -1,5 +1,4 @@
 // ./screens/About.js
-import 'react-native-gesture-handler';
 // import { ThemeProvider } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';

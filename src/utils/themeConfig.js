@@ -3,17 +3,19 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
+  MD3DarkTheme as PaperDarkTheme,
+  MD3LightTheme as PaperDefaultTheme,
+  adaptNavigationTheme
 } from 'react-native-paper';
 const CombinedDefaultTheme = {
   ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
+  // ...NavigationDefaultTheme,
+  ...adaptNavigationTheme({reactNaivgationLight: NavigationDefaultTheme, reactNavigationDark: NavigationDarkTheme}),
   // roundness: 10,
   dark: false,
   colors: {
-    ...PaperDefaultTheme.colors,
-    ...NavigationDefaultTheme.colors,
+    // ...PaperDefaultTheme.colors,
+    // ...NavigationDefaultTheme.colors,
     primary: '#01579b',
     primaryDark: '#002f6c',
     primaryLight: '#4f83cc',
@@ -29,12 +31,13 @@ const CombinedDefaultTheme = {
 };
 const CombinedDarkTheme = {
   ...PaperDarkTheme,
-  ...NavigationDarkTheme,
+  // ...NavigationDarkTheme,
+  ...adaptNavigationTheme({reactNavigationDark: NavigationDarkTheme}),
   dark: true,
   mode: 'adaptative',
   colors: {
-    ...PaperDarkTheme.colors,
-    ...NavigationDarkTheme.colors,
+    // ...PaperDarkTheme.colors,
+    // ...NavigationDarkTheme.colors,
     primary: '#424242',
     primaryLight: '#6b6b6b',
     background: '#1E1E1E',
