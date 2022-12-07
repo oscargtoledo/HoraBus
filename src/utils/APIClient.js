@@ -1,9 +1,9 @@
 import axios from "axios"
-// import env from "./env"
+import env from "./env"
 
 const instance = axios.create({
-  baseURL: "https://horabus-api.onrender.com",
-  timeout: 10000,
+  baseURL: env.API_URL,
+  timeout: env.TIMEOUT,
 });
 
 console.log(instance.baseURL)
