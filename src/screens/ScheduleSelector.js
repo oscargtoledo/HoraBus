@@ -4,6 +4,8 @@ import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { RefreshControl } from 'react-native-web-refresh-control';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // import {
 //   Placeholder,
 //   PlaceholderMedia,
@@ -56,18 +58,29 @@ const ScheduleSelector = ({ navigation }) => {
   useEffect(() => {
     const retrieveData = async () => {
       try {
-        const result = await APIClient.get('/schedules/names');
-        // console.log(result.data);
-        setSchedules(result.data);
-        setRefreshing(false);
+        var scheduleData;
+        scheduleData = await APIClient.get('/schedules/names');
+        if (scheduleData !== null) {
+          await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
+          setSchedules(scheduleData.data);
+          setRefreshing(false);
+        } else {
+          scheduleData = await AsyncStorage.getItem('localSchedules');
+          setSchedules(JSON.parse(scheduleData));
+          setRefreshing(false);
+        }
+
+        // scheduleData = await APIClient.get('/schedules/names');
+        // await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
+        // setSchedules(scheduleData.data);
+        // setRefreshing(false);
+
       } catch (e) {
-        // console.log(e);
         setHasError(true);
         setRefreshing(false);
       }
     };
     retrieveData();
-    // retrieveData();
   }, [refreshing]);
 
   // const generateRouteButtons = () => {
@@ -136,7 +149,7 @@ const ScheduleList = ({ items, isLoading, navigation, onRefresh }) => {
     // return true ? (
     <ActivityIndicator size="large" />
   ) : (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{
           height: 0,
