@@ -38,6 +38,7 @@ const ScheduleSelector = ({ navigation }) => {
   const [schedules, setSchedules] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [isFirstLoad, setIsFirstLoad] = useState(false);
   // const retrieveData = async () => {
   //   try {
   //     const { data } = await APIClient.get('/schedules/names');
@@ -58,23 +59,45 @@ const ScheduleSelector = ({ navigation }) => {
   useEffect(() => {
     const retrieveData = async () => {
       try {
-        var scheduleData;
-        scheduleData = await APIClient.get('/schedules/names');
-        if (scheduleData !== null) {
-          await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
-          setSchedules(scheduleData.data);
-          setRefreshing(false);
+        var localScheduleData = await AsyncStorage.getItem('localSchedules');
+        if (localScheduleData === null) {
+          setIsFirstLoad(true);
+          var scheduleData = await APIClient.get('/schedules/names');
+          if (scheduleData !== null) {
+            await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
+            setSchedules(scheduleData.data);
+            setIsFirstLoad(false);
+            setRefreshing(false);
+          } else {
+            throw Error;
+          }
         } else {
-          scheduleData = await AsyncStorage.getItem('localSchedules');
-          setSchedules(JSON.parse(scheduleData));
+          setSchedules(JSON.parse(localScheduleData));
           setRefreshing(false);
+          var scheduleData = await APIClient.get('/schedules/names');
+          if (scheduleData !== null) {
+            await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
+            setIsFirstLoad(false);
+          }
         }
 
+
+        // var scheduleData = await APIClient.get('/schedules/names');
+        // if (scheduleData !== null) {
+        //   await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
+        //   setSchedules(scheduleData.data);
+        //   setIsFirstLoad(false);
+        //   setRefreshing(false);
+        // } else {
+        //   if (localScheduleData !== null) {
+        //     setSchedules(JSON.parse(localScheduleData));
+        //     setRefreshing(false);
+        //   }
+        // }
         // scheduleData = await APIClient.get('/schedules/names');
         // await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
         // setSchedules(scheduleData.data);
         // setRefreshing(false);
-
       } catch (e) {
         setHasError(true);
         setRefreshing(false);
@@ -112,6 +135,21 @@ const ScheduleSelector = ({ navigation }) => {
         }}
       > */}
       <Snackbar
+        visible={isFirstLoad}
+        duration={200}
+        action={{
+          label: 'OK',
+        }}
+        wrapperStyle={
+          {
+            // height: window.innerHeight,
+          }
+        }
+      >
+        <Text>Carregant horaris per primer cop. Pot trigar una estona...</Text>
+      </Snackbar>
+
+      <Snackbar
         visible={hasError}
         duration={2000}
         onDismiss={() => setHasError(false)}
@@ -126,6 +164,7 @@ const ScheduleSelector = ({ navigation }) => {
       >
         <Text>Hi ha hagut un error al carregar els horaris.</Text>
       </Snackbar>
+
 
       <Button
         mode="contained"

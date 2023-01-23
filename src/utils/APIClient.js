@@ -4,7 +4,7 @@ import env from './env';
 
 const instance = create({
   baseURL: env.API_URL,
-  // baseURL: 'https://buschedule-api.herokuapp.com',
+  // baseURL: 'https://horabus-api.onrender.com',
   timeout: env.TIMEOUT,
 });
 
