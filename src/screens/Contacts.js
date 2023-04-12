@@ -73,16 +73,18 @@ const Contact = () => {
     };
     console.log(fetchConfig);
     fetch('/', fetchConfig)
-      .then((e) => {alert("El feedback s'ha enviat correctament", 'My Alert Msg', [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        { text: 'OK' },
-      ]);
-      setUsernameText('Anònim');
-      setInputText('');})
+      .then((e) => {
+        alert("El feedback s'ha enviat correctament", 'My Alert Msg', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'OK' },
+        ]);
+        setUsernameText('Anònim');
+        setInputText('');
+      })
       .catch(error => alert(error));
 
     e.preventDefault();
@@ -97,6 +99,7 @@ const Contact = () => {
           justifyContent: 'center',
         }}
       >
+
         <Text style={{ alignSelf: 'center' }}>
           Comparteix l'app amb aquest link!
         </Text>
@@ -151,6 +154,17 @@ const Contact = () => {
         >
           Enviar
         </Button>
+
+        <Snackbar
+          visible={visible}
+          duration={2000}
+          onDismiss={() => setVisible(false)}
+          action={{
+            label: 'OK',
+          }}
+        >
+          <Text>Link copiat!</Text>
+        </Snackbar>
       </View>
     </Surface>
   );

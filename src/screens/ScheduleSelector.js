@@ -62,7 +62,7 @@ const ScheduleSelector = ({ navigation }) => {
         var localScheduleData = await AsyncStorage.getItem('localSchedules');
         if (localScheduleData === null) {
           setIsFirstLoad(true);
-          var scheduleData = await APIClient.get('/schedules/names');
+          var scheduleData = await APIClient.get('/schedules');
           if (scheduleData !== null) {
             await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
             setSchedules(scheduleData.data);
@@ -74,7 +74,7 @@ const ScheduleSelector = ({ navigation }) => {
         } else {
           setSchedules(JSON.parse(localScheduleData));
           setRefreshing(false);
-          var scheduleData = await APIClient.get('/schedules/names');
+          var scheduleData = await APIClient.get('/schedules');
           if (scheduleData !== null) {
             await AsyncStorage.setItem('localSchedules', JSON.stringify(scheduleData.data));
             setIsFirstLoad(false);

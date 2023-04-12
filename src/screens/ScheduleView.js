@@ -19,6 +19,8 @@ import {
 import APIClient from '../utils/APIClient';
 import { ScheduleFilter } from '../utils/ScheduleFilter';
 import TextTicker from 'react-native-text-ticker'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // import {
 //   Table,
@@ -155,10 +157,19 @@ class ScheduleView extends React.Component {
   async retrieveSchedule() {
     try {
       const { routeId } = this.props.route.params;
-      const { data } = await APIClient.get('/schedules/' + routeId);
+      var data = null;
+      var localScheduleData = await AsyncStorage.getItem('localSchedules');
+      if (localScheduleData !== null) {
+        var localScheduleDataJson = JSON.parse(localScheduleData);
+        data = localScheduleDataJson.find(element => element["_id"] == routeId);
+      } else {
+        data = await APIClient.get('/schedules/' + routeId);
+        data = data["data"][0];
+      }
+
       const { theme } = this.props;
       // this.setState({ schedule: data[0] });
-      this.props.navigation.setOptions({ title: data[0].routeName });
+      this.props.navigation.setOptions({ title: data.routeName });
       this.props.navigation.setOptions({
         headerTitle: (props) =>
           <View style={{
@@ -181,13 +192,13 @@ class ScheduleView extends React.Component {
                 repeatSpacer={50}
                 marqueeDelay={1500}
               >
-                {data[0].routeName}
+                {data.routeName}
               </TextTicker>
             </View>
             <ScheduleFilter />
           </View>,
       });
-      return data[0];
+      return data;
     } catch (ex) {
       this.setState({ fetchError: true });
     }
@@ -402,7 +413,7 @@ class ScheduleView extends React.Component {
                         justifyContent: 'center', //Centered horizontally
                         alignItems: 'center', //Centered vertically
                         backgroundColor: theme?.colors.surface,
-                        borderTopWidth:3,
+                        borderTopWidth: 3,
                         borderColor: theme?.colors.primaryDark
                       },
                     ]}
